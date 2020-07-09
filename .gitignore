@@ -350,5 +350,7 @@ MigrationBackup/
 .ionide/
 
 #custom
-src/Sample/.idea
-src/Sample/Sample.Web.Client/terraform/.terraform
+**/.idea
+**/.terraform
+**/*.tfstate*
+**/.DS_*
