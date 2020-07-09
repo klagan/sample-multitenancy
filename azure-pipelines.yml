@@ -1,0 +1,152 @@
+name: 1.0$(rev:.r)
+
+trigger:
+  branches:
+    include:
+      - '*'
+  paths:
+    exclude:
+      - cd/*
+
+variables:
+  buildConfiguration: 'Release'
+  webProjects: '**/*.csproj'
+  testProjects: '**/!(*.[Ii]ntegration|*.[Ss]pecification).[Tt]est.csproj' # only use the unit tests ie: not named *integration.tests*
+
+parameters:
+  - name: AgentName
+    displayName: 'Build Agent Name'
+    type: string
+    default: 'Azure Pipelines'
+    values:
+      - 'Azure Pipelines'
+      - 'Linux Agents'
+      - 'MS Windows Agents'
+  - name: WebArtefactPipelineId
+    displayName: 'Web Artefact Pipeline Id'
+    default: 'klagan.web-multi-tenancy'
+  - name: WebArtefactBuildId
+    displayName: 'Web Artefact Build Id'
+    default: 114
+  - name: TestProjects
+    type: string
+    default: '**/*[Tt]ests/*.csproj'
+  - name: webAppName
+    type: string
+    default: 'multitenant-sample'
+  - name: subscriptionName
+    type: string
+    default: 'LaganLabs SP'
+    
+stages:
+  - stage: 'Build'
+    pool:
+      vmImage: 'ubuntu-latest'
+    jobs:
+      - job: 'Build'
+        steps:
+        - script: |
+            echo $(webProjects)
+            ls -R
+          displayName: 'Run a multi-line script'
+        - task: DotNetCoreCLI@2
+          displayName: Restore
+          inputs:
+            command: restore
+            projects: $(webProjects)
+  
+        - task: DotNetCoreCLI@2
+          displayName: Build
+          inputs:
+            projects: |
+              $(webProjects)
+            arguments: '--configuration $(BuildConfiguration)'
+  
+        - task: DotNetCoreCLI@2
+          displayName: Test
+          inputs:
+            command: test
+            projects: ${{ parameters.TestProjects }}
+            arguments: '--configuration $(BuildConfiguration)'
+  
+        - task: DotNetCoreCLI@2
+          displayName: Publish
+          inputs:
+            command: publish
+            publishWebProjects: True
+            arguments: '--configuration $(BuildConfiguration) --output $(build.ArtifactStagingDirectory)'
+            zipAfterPublish: True
+  
+        - task: PublishBuildArtifacts@1
+          displayName: 'Publish Artifact'
+          inputs:
+            PathtoPublish: '$(build.ArtifactStagingDirectory)'
+            ArtifactName: web
+            condition: succeededOrFailed()
+
+#   - stage: 'Deploy'
+#     displayName: 'Deploy to Production'
+#     condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/master'))
+#     pool:
+#       name: ${{ parameters.AgentName }}
+#       vmImage: 'ubuntu-latest'
+#     jobs:
+#       - job: 
+#         displayName: 'Deploy Web Application'
+#         steps:
+          
+#         # use a specific version
+# #        - task: DownloadBuildArtifacts@0
+# #          inputs:
+# #            buildType: 'specific'
+# #            project: 'examples'
+# #            pipeline: ${{ parameters.WebArtefactPipelineId }}
+# #            #specificBuildWithTriggering: false # Optional
+# #            buildVersionToDownload: 'specific'
+# #            #allowPartiallySucceededBuilds: false # Optional
+# #            #branchName: 'refs/heads/master' # Required when buildType == Specific && BuildVersionToDownload == LatestFromBranch
+# #            buildId: ${{ parameters.WebArtefactBuildId }} # Required when buildType == Specific && BuildVersionToDownload == Specific
+# #            #tags: # Optional
+# #            downloadType: 'single'
+# #            artifactName: 'web' # Required when downloadType == Single
+# #            #itemPattern: '**' # Optional
+# #            downloadPath: '$(System.DefaultWorkingDirectory)'
+# #            #parallelizationLimit: '8' # Optional
+            
+#         # use from this build 
+#         - task: DownloadBuildArtifacts@0
+#           inputs:
+#             buildType: 'current'
+#             project: 'examples'
+#             pipeline: ${{ parameters.WebArtefactPipelineId }}
+#             buildVersionToDownload: 'current'
+#             branchName: 'refs/heads/master' # Required when buildType == Specific && BuildVersionToDownload == LatestFromBranch
+#             downloadType: 'single'
+#             artifactName: 'web' # Required when downloadType == Single
+#             downloadPath: '$(System.DefaultWorkingDirectory)'
+            
+#           # use latest from master   
+# #        - task: DownloadBuildArtifacts@0
+# #          inputs:
+# #            buildType: 'specific'
+# #            project: 'examples'
+# #            pipeline: ${{ parameters.WebArtefactPipelineId }}
+# #            #specificBuildWithTriggering: false # Optional
+# #            buildVersionToDownload: 'latestFromBranch'
+# #            #allowPartiallySucceededBuilds: false # Optional
+# #            branchName: 'refs/heads/master' # Required when buildType == Specific && BuildVersionToDownload == LatestFromBranch
+# #            #buildId: ${{ parameters.WebArtefactBuildId }} # Required when buildType == Specific && BuildVersionToDownload == Specific
+# #            #tags: # Optional
+# #            downloadType: 'single'
+# #            artifactName: 'web' # Required when downloadType == Single
+# #            #itemPattern: '**' # Optional
+# #            downloadPath: '$(System.DefaultWorkingDirectory)'
+# #            #parallelizationLimit: '8' # Optional
+        
+#         - task: AzureRmWebAppDeployment@4
+#           inputs:
+#             ConnectionType: 'AzureRM'
+#             azureSubscription: 'LaganLabs SP'
+#             appType: 'webApp'
+#             WebAppName: 'multitenant-sample'
+#             packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
