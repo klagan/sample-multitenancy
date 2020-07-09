@@ -348,3 +348,7 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+
+#custom
+src/Sample/.idea
+src/Sample/Sample.Web.Client/terraform/.terraform
