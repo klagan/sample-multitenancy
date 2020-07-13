@@ -1,0 +1,49 @@
+name: 1.0$(rev:.r)
+
+trigger:
+- master
+- develop/*
+  
+parameters:
+- name: AgentName
+  type: string
+  default: 'Linux Agents'
+  values:
+  - 'Azure Pipelines'
+  - 'Linux Agents'
+  - 'MS Windows Agents'
+
+stages:
+  - stage: 'Build'
+    pool:
+      name: ${{ parameters.AgentName }}
+      vmImage: 'ubuntu-latest'
+    jobs:  
+    - job: 'Bundle'
+      steps:
+      - script: echo $(build.buildNumber)
+        displayName: Show build number
+
+      - task: CopyFiles@2
+        displayName: Copy terraform plan artefacts
+        inputs: 
+          sourceFolder: '$(System.DefaultWorkingDirectory)'
+          contents: |
+            **/*.tf
+            **/configuration.tfvars
+            !**/configuration.auto.tfvars
+            !**/versions.tf
+          targetFolder: '$(Build.ArtifactStagingDirectory)/terraform'
+          cleanTargetFolder: false
+          overWrite: false
+          flattenFolders: false
+
+      - task: PublishBuildArtifacts@1
+        displayName: Publish terraform plan artefacts
+        inputs:
+          pathToPublish: '$(build.ArtifactStagingDirectory)/terraform'
+          artifactName: 'terraform'
+          publishLocation: 'container'
+
+      - task: whitesource.ws-bolt.bolt.wss.WhiteSource Bolt@20
+        displayName: 'WhiteSource Bolt'

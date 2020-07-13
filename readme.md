@@ -16,3 +16,10 @@ The web project has two `ServiceCollectionExtension` methods.  One sets up authe
 Add `Microsoft.Identity.Web` and `Microsoft.Identity.Web.UI` packages to handle authentication and challenge screens respectively
 
 Change the `area` in the `_LoginPartial` partial views from `AzureAd` to `MicrosoftIdentity`.  The `Microsoft.Identity.Web.UI` package is responsible for the challenge screens and uses the `MicrosoftIdentity` MVC area for the login and logout pages.
+
+#### Troubleshooting
+
+> TODO:: notes about how you enable enterprise applications for each tenant. appreg -> managed application (service principal) -> permissions
+
+`MsalUiRequiredException: No account or login hint was passed to the AcquireTokenSilent call.`
+>Try clearing the cookies and trying again.  This message could indicate you are using a stale cookie when changes have been made to authn.  Clearing the cookies and logging in again to generate a new cookie may highlight the true error or fix the problem.
