@@ -18,4 +18,12 @@
       <Folder Include="Properties" />
     </ItemGroup>
 
+
+    <ItemGroup>
+      <Content Update="Views\Home\CallWebApi.cshtml">
+        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      </Content>
+    </ItemGroup>
+
 </Project>

@@ -12,9 +12,6 @@ resource "azuread_service_principal" "my_webclient_service_principal" {
   app_role_assignment_required = false
 }
 
-data "azuread_client_config" "current" {
-}
-
 resource "azuread_application_password" "my_webclient_secret" {
   application_object_id = azuread_application.my_webclient.object_id
   value                 = uuid()
@@ -65,6 +62,19 @@ resource "null_resource" "set_webclient_clientsecret" {
   depends_on = [null_resource.set_webclient_clientid]
 }
 
+resource "null_resource" "set_webclient_webapi1_clientid" {
+  provisioner "local-exec" {
+    command = "dotnet user-secrets set --id ${var.webclient_user_secret_id} WebApi1:ClientId ${azuread_application.my_webapi1.application_id}"
+    interpreter = ["/bin/bash", "-c"]
+  }
+
+  triggers = {
+    always_run = "${timestamp()}"
+  }
+
+  depends_on = [azuread_application.my_webapi1]
+}
+
 resource "null_resource" "list_webclient_user_secrets" {
   provisioner "local-exec" {
     command = "dotnet user-secrets list --id ${var.webclient_user_secret_id}"
@@ -74,5 +84,5 @@ resource "null_resource" "list_webclient_user_secrets" {
     always_run = "${timestamp()}"
   }
 
-  depends_on = [null_resource.set_webclient_clientsecret]
+  depends_on = [null_resource.set_webclient_webapi1_clientid]
 }
