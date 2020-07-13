@@ -24,7 +24,7 @@ Add `Microsoft.Identity.Web` and `Microsoft.Identity.Web.UI` packages to handle 
 
 Change the `area` in the `_LoginPartial` partial views from `AzureAd` to `MicrosoftIdentity`.  The `Microsoft.Identity.Web.UI` package is responsible for the challenge screens and uses the `MicrosoftIdentity` MVC area for the login and logout pages.
 
-#### Troubleshooting
+## Troubleshooting
 
 |Error|Remedy|
 |-|-|
