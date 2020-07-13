@@ -83,7 +83,6 @@ namespace Sample.Web.Client.MyAuthentication
                 //     configuration.Bind("AzureAd", microsoftIdentityOptions);
                 // })
                 .AddWebAppCallsProtectedWebApi(configuration)
-                //.AddWebAppCallsProtectedWebApi(configuration, new string[] {"User.Read"})  // TODO:: scopes can be moved into controller
                 .AddInMemoryTokenCaches();
 
             services.AddControllersWithViews(options =>

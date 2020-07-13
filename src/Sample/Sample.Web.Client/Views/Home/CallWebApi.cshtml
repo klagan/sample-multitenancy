@@ -4,4 +4,7 @@
 
 <h1>@ViewData["Title"]</h1>
 
-<p>TBD</p>
+@{   
+    var data = ViewBag.Payload;  
+}  
+<p>Access Token: @data.AccessToken</p>  
