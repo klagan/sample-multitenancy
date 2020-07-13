@@ -2,6 +2,14 @@
 
 This sample is a web project that allows sign in from multiple tenants
 
+## Work in Progress
+
+[ ] TODO:: incorporate api permission in terraform script
+[ ] TODO:: add documentation on providing consent
+[ ] TODO:: use accesstoken to call webapi
+[ ] TODO:: register webapi with a different tenant
+[ ] TODO:: restrict tenant user access to different tenant owned web apis
+
 ## Getting started
 
 ### Terraform your environment
@@ -28,5 +36,6 @@ Change the `area` in the `_LoginPartial` partial views from `AzureAd` to `Micros
 
 |Error|Remedy|
 |-|-|
+|Random issues with `appSettings.json` configuration| This could indicate an issue with the user secrets not being loaded which is because the `ASPNETCORE_ENVIRONMENT` environment variable is not set to `DEVELOPMENT`.  User secrets are not loaded in environments other than development.  This is built into the framework.|
 |`MsalUiRequiredException: AADSTS65001: The user or administrator has not consented to use the application with ID`|The application relies on resources in the `API permissions` section of `Application Registrations`.  These need to be consented to by an administrator (or user) in the `Enterprise Application` configuration. (```Application Registration --> Managed Application --> Permissions)```|
 |`MsalUiRequiredException: No account or login hint was passed to the AcquireTokenSilent call.`|Try clearing the cookies and trying again.  This message could indicate you are using a stale cookie when changes have been made to authn.  Clearing the cookies and logging in again to generate a new cookie may highlight the true error or fix the problem.|

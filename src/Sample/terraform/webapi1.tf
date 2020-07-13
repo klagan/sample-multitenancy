@@ -37,6 +37,19 @@ resource "null_resource" "set_webapi1_clientid" {
   depends_on = [null_resource.clear_webapi1_user_secrets]
 }
 
+resource "null_resource" "set_webapi1_tenantid" {
+  provisioner "local-exec" {
+    command = "dotnet user-secrets set --id ${var.webapi1_user_secret_id} AzureAd:TenantId ${data.azuread_client_config.current.tenant_id}"
+    interpreter = ["/bin/bash", "-c"]
+  }
+
+  triggers = {
+    always_run = "${timestamp()}"
+  }
+
+  depends_on = [null_resource.set_webapi1_clientid]
+}
+
 resource "null_resource" "list_webapi1_user_secrets" {
   provisioner "local-exec" {
     command = "dotnet user-secrets list --id ${var.webapi1_user_secret_id}"
@@ -46,5 +59,5 @@ resource "null_resource" "list_webapi1_user_secrets" {
     always_run = "${timestamp()}"
   }
 
-  depends_on = [null_resource.set_webapi1_clientid]
+  depends_on = [null_resource.set_webapi1_tenantid]
 }

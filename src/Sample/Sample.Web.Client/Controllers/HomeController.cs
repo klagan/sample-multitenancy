@@ -42,7 +42,9 @@ namespace Sample.Web.Client.Controllers
         {
             var accessToken =
                 await _tokenRepo.GetAccessTokenForUserAsync(new[] {"User.Read"});
-
+            
+            accessToken = await _tokenRepo.GetAccessTokenForUserAsync(new[] {"91e3183b-e341-4b37-b2f8-bb71693e91e5/.default"});
+            
             ViewBag.Payload = new TestData {AccessToken = accessToken};
             
             return View();

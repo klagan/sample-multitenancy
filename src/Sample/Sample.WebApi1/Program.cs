@@ -15,7 +15,19 @@ namespace Sample.WebApi1
             string[] args
         )
         {
-            CreateHostBuilder(args).Build().Run();
+            CreateHostBuilder(args)
+                .ConfigureAppConfiguration((
+                    context,
+                    builder
+                ) =>
+                {
+                    // if (context.HostingEnvironment.IsDevelopment())
+                    // {
+                    //     builder.AddUserSecrets<Program>();
+                    // }
+                })
+                .Build()
+                .Run();
         }
 
         public static IHostBuilder CreateHostBuilder(

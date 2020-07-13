@@ -31,6 +31,9 @@ namespace Sample.WebApi1
             IServiceCollection services
         )
         {
+            AzureADOptions options = new AzureADOptions();
+            Configuration.Bind("AzureAd", options);
+            
             services.AddAuthentication(AzureADDefaults.BearerAuthenticationScheme)
                 .AddAzureADBearer(options => Configuration.Bind("AzureAd", options));
             services.AddControllers();
