@@ -21,3 +21,9 @@ variable webapi2_replyurl {}
 variable webapi2_name {}
 
 variable webapi2_homepage {}
+
+variable webclient_baseaddress {}
+
+variable webapi1_baseaddress {}
+
+variable webapi2_baseaddress {}

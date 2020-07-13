@@ -4,18 +4,20 @@ This sample is a web project that allows sign in from multiple tenants
 
 ## Work in Progress
 
-- [ ] incorporate api permission in terraform script
-- [ ] add documentation on providing consent
-- [ ] use accesstoken to call webapi
+- [X] incorporate api permission in terraform script
+- [X] add documentation on providing consent
+- [X] use accesstoken to call webapi
 - [ ] register webapi with a different tenant
 - [ ] restrict tenant user access to different tenant owned web apis
+- [X] rearrange terraform script to prevent needing to run twice
 
 ## Getting started
 
 ### Terraform your environment
 Terraform is used to build the environment and set the local user secrets.  Unfortunately, because I cant solve a quirk in multiline commands on MacOS I have to create a `local-exec` for each command I want to run.
 
-The environment has now been setup anf the local environment has been configured using `user secrets`.  We now need to register consent for the application in the tenant.
+#### Grant administrator consent
+The environment has now been setup and the local environment has been configured using `user secrets`.  We now need to register consent for the application in the tenant.
 
 The application relies on resources in the `API permissions` section of `Application Registrations`.  These need to be consented to by an administrator (or user) in the `Enterprise Application` configuration.
 

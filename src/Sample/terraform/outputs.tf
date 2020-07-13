@@ -6,7 +6,7 @@ output "webclient_tenant_id" {
   value = data.azuread_client_config.current.tenant_id
 }
 
-output "webclient_user_secret_id" {
+output "list_webclient_user_secret_command" {
   value = format("dotnet user-secrets list --id %s", var.webclient_user_secret_id)
 }
 
@@ -22,7 +22,7 @@ output "webapi1_tenant_id" {
   value = data.azuread_client_config.current.tenant_id
 }
 
-output "webapi1_user_secret_id_command" {
+output "list_webapi1_user_secret_command" {
   value = format("dotnet user-secrets list --id %s", var.webapi1_user_secret_id)
 }
 

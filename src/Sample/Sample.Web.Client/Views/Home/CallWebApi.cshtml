@@ -5,8 +5,23 @@
 <h1>@ViewData["Title"]</h1>
 
 @{   
-    var data = ViewBag.Payload;  
+    var data = ViewBag.Payload;
+    var weatherForecasts = data.WeatherForecast;
 }  
 <div>
-<pre>Access Token: @data.AccessToken</pre>  
+    <pre>Access Token: @data.AccessToken</pre>  
 </div>
+
+<dl>
+    @foreach (var weatherForecast in weatherForecasts)
+    {
+        <dt>Date</dt>
+        <dd>@weatherForecast.Date</dd>
+        <dt>Temp.C</dt>
+        <dd>@weatherForecast.TemperatureC</dd>
+        <dt>Temp.F</dt>
+        <dd>@weatherForecast.TemperatureF</dd>
+        <dt>Summary</dt>
+        <dd>@weatherForecast.Summary</dd>
+    }
+</dl>

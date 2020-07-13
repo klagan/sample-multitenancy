@@ -7,6 +7,14 @@ resource "azuread_application" "my_webclient" {
   type                       = "webapp/api"
 
   required_resource_access {
+    resource_app_id = azuread_application.my_webapi1.application_id
+    resource_access {
+      id = tolist(azuread_application.my_webapi1.oauth2_permissions)[0].id
+      type = "Scope"
+    }
+  }
+  
+  required_resource_access {
     # ms graph api
     resource_app_id = "00000003-0000-0000-c000-000000000000"
 
@@ -40,11 +48,15 @@ resource "azuread_application" "my_webclient" {
       type = "Scope"
     }
   }
+
+  depends_on = [azuread_application.my_webapi1]  
 }
 
 resource "azuread_service_principal" "my_webclient_service_principal" {
   application_id               = azuread_application.my_webclient.application_id
   app_role_assignment_required = false
+
+  depends_on = [azuread_application.my_webclient]
 }
 
 resource "azuread_application_password" "my_webclient_secret" {
@@ -58,6 +70,10 @@ resource "azuread_application_password" "my_webclient_secret" {
   }
   depends_on = [azuread_application.my_webclient]
 }
+
+
+
+
 
 resource "null_resource" "clear_webclient_user_secrets" {
   provisioner "local-exec" {
@@ -107,12 +123,13 @@ resource "null_resource" "set_webclient_webapi1_clientid" {
     always_run = "${timestamp()}"
   }
 
-  depends_on = [azuread_application.my_webapi1]
+  depends_on = [null_resource.set_webclient_clientsecret]
 }
 
-resource "null_resource" "list_webclient_user_secrets" {
+resource "null_resource" "set_webclient_webapi1_baseaddress" {
   provisioner "local-exec" {
-    command = "dotnet user-secrets list --id ${var.webclient_user_secret_id}"
+    command = "dotnet user-secrets set --id ${var.webclient_user_secret_id} WebApi1:BaseAddress ${var.webapi1_baseaddress}"
+    interpreter = ["/bin/bash", "-c"]
   }
 
   triggers = {
@@ -121,3 +138,4 @@ resource "null_resource" "list_webclient_user_secrets" {
 
   depends_on = [null_resource.set_webclient_webapi1_clientid]
 }
+

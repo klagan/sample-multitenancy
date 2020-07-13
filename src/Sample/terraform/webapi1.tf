@@ -10,6 +10,8 @@ resource "azuread_application" "my_webapi1" {
 resource "azuread_service_principal" "my_webapi1_service_principal" {
   application_id               = azuread_application.my_webapi1.application_id
   app_role_assignment_required = false
+
+  depends_on = [azuread_application.my_webapi1]
 }
 
 resource "null_resource" "clear_webapi1_user_secrets" {
@@ -48,16 +50,4 @@ resource "null_resource" "set_webapi1_tenantid" {
   }
 
   depends_on = [null_resource.set_webapi1_clientid]
-}
-
-resource "null_resource" "list_webapi1_user_secrets" {
-  provisioner "local-exec" {
-    command = "dotnet user-secrets list --id ${var.webapi1_user_secret_id}"
-  }
-
-  triggers = {
-    always_run = "${timestamp()}"
-  }
-
-  depends_on = [null_resource.set_webapi1_tenantid]
 }

@@ -1,4 +1,4 @@
-namespace Sample.Web.Client.MyAuthentication
+namespace Sample.Web.Client.Services
 {
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Authentication;
@@ -12,6 +12,7 @@ namespace Sample.Web.Client.MyAuthentication
     using Microsoft.Identity.Web.TokenCacheProviders.InMemory;
     using Microsoft.Identity.Web.UI;
     using Microsoft.IdentityModel.Tokens;
+    using Models;
 
     public static class ServiceCollectionExtension
     {
@@ -95,6 +96,22 @@ namespace Sample.Web.Client.MyAuthentication
                 .AddMicrosoftIdentityUI();
 
             return services;
+        }
+
+        public static IServiceCollection AddWebApiOptions(
+            this IServiceCollection services,
+            IConfiguration configuration
+        )
+        {
+            // services.Configure<WebApi1Options>(webApiOptions =>
+            // {
+            //     configuration.GetSection("WebApi");
+            // });
+            
+            var options = new WebApi1Options();
+            configuration.Bind("WebApi1", options);
+
+            return services.AddSingleton(typeof(WebApi1Options), options);
         }
     }
 }

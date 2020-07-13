@@ -17,7 +17,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace Sample.Web.Client
 {
-    using MyAuthentication;
+    using Services;
 
     public class Startup
     {
@@ -37,8 +37,8 @@ namespace Sample.Web.Client
         {
             // services.AddVanillaAuthentication(Configuration);
             services.AddMsalAuthentication(Configuration);
+            services.AddWebApiOptions(Configuration);
             services.AddRazorPages();
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
