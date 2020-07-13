@@ -4,11 +4,11 @@ This sample is a web project that allows sign in from multiple tenants
 
 ## Work in Progress
 
-[ ] TODO:: incorporate api permission in terraform script
-[ ] TODO:: add documentation on providing consent
-[ ] TODO:: use accesstoken to call webapi
-[ ] TODO:: register webapi with a different tenant
-[ ] TODO:: restrict tenant user access to different tenant owned web apis
+- [ ] incorporate api permission in terraform script
+- [ ] add documentation on providing consent
+- [ ] use accesstoken to call webapi
+- [ ] register webapi with a different tenant
+- [ ] restrict tenant user access to different tenant owned web apis
 
 ## Getting started
 
