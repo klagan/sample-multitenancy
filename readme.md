@@ -16,7 +16,7 @@ This sample is a web project that allows sign in from multiple tenants
 ### Terraform your environment
 Terraform is used to build the environment and set the local user secrets.  Unfortunately, because I cant solve a quirk in multiline commands on MacOS I have to create a `local-exec` for each command I want to run.
 
-#### Grant administrator consent
+### Grant administrator consent
 The environment has now been setup and the local environment has been configured using `user secrets`.  We now need to register consent for the application in the tenant.
 
 The application relies on resources in the `API permissions` section of `Application Registrations`.  These need to be consented to by an administrator (or user) in the `Enterprise Application` configuration.
