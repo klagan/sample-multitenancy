@@ -22,6 +22,8 @@ ProjectSection(SolutionItems) = preProject
 	terraform\versions.tf = terraform\versions.tf
 	terraform\webapi1.tf = terraform\webapi1.tf
 	terraform\webclient.tf = terraform\webclient.tf
+	terraform\webapi1-commands.tf = terraform\webapi1-commands.tf
+	terraform\webclient-commands.tf = terraform\webclient-commands.tf
 EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample.WebApi1", "Sample.WebApi1\Sample.WebApi1.csproj", "{5F24FE68-A115-4E85-AB6A-72559E2C8EC8}"

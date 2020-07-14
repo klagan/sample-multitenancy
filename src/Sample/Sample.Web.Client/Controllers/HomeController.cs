@@ -45,7 +45,7 @@ namespace Sample.Web.Client.Controllers
         public async Task<IActionResult> CallWebApi()
         {
             var accessToken = await _tokenRepo.GetAccessTokenForUserAsync(new[] {$"{_webApi1Options.ClientId}/.default"});
-            
+
             // TODO:: remove this crappy test code in favour of dedicated transport agent (httpclientfactory, refit etc.)
             var a = new HttpClient();
             a.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);

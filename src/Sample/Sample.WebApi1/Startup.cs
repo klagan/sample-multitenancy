@@ -15,6 +15,9 @@ using Microsoft.Extensions.Logging;
 
 namespace Sample.WebApi1
 {
+    using Microsoft.AspNetCore.Authentication.JwtBearer;
+    using Microsoft.IdentityModel.Tokens;
+
     public class Startup
     {
         public Startup(
@@ -31,11 +34,34 @@ namespace Sample.WebApi1
             IServiceCollection services
         )
         {
-            AzureADOptions options = new AzureADOptions();
-            Configuration.Bind("AzureAd", options);
+            // AzureADOptions options = new AzureADOptions();
+            // Configuration.Bind("AzureAd", options);
             
-            services.AddAuthentication(AzureADDefaults.BearerAuthenticationScheme)
+            services
+                .AddAuthentication(AzureADDefaults.BearerAuthenticationScheme)
                 .AddAzureADBearer(options => Configuration.Bind("AzureAd", options));
+            
+            services.Configure<JwtBearerOptions>(AzureADDefaults.JwtBearerAuthenticationScheme, options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters {ValidateIssuer = false};
+               
+                // // This is a Microsoft identity platform web API.
+                // options.Authority += "/v2.0";
+                //
+                // // The web API accepts as audiences both the Client ID (options.Audience) and api://{ClientID}.
+                // options.TokenValidationParameters.ValidAudiences = new []
+                // {
+                //     options.Audience,
+                //     $"api://{options.Audience}"
+                // };
+
+                // Instead of using the default validation (validating against a single tenant,
+                // as we do in line-of-business apps),
+                // we inject our own multitenant validation logic (which even accepts both v1 and v2 tokens).
+               // options.TokenValidationParameters.IssuerValidator = AadIssuerValidator.GetIssuerValidator(options.Authority).Validate;;
+            });
+            
+            
             services.AddControllers();
         }
 

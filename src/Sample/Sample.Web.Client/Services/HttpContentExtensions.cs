@@ -7,10 +7,18 @@ namespace Sample.Web.Client.Services
     public static class HttpContentExtensions
     {
         public static async Task<T> ConvertAsync<T>(this HttpContent content)
+         where T : new()
         {
-            string json = await content.ReadAsStringAsync();
-            T value = JsonConvert.DeserializeObject<T>(json);
-            return value;
+            try
+            {
+                string json = await content.ReadAsStringAsync();
+                T value = JsonConvert.DeserializeObject<T>(json);
+                return value;
+            }
+            catch
+            {
+                return new T();
+            }
         }
     }
 }

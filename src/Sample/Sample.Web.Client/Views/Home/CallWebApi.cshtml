@@ -13,15 +13,22 @@
 </div>
 
 <dl>
-    @foreach (var weatherForecast in weatherForecasts)
+    @if(weatherForecasts is null)
     {
-        <dt>Date</dt>
-        <dd>@weatherForecast.Date</dd>
-        <dt>Temp.C</dt>
-        <dd>@weatherForecast.TemperatureC</dd>
-        <dt>Temp.F</dt>
-        <dd>@weatherForecast.TemperatureF</dd>
-        <dt>Summary</dt>
-        <dd>@weatherForecast.Summary</dd>
+        <p>Weather forecasts empty</p>    
+    }
+    else
+    {
+        @foreach (var weatherForecast in weatherForecasts)
+        {
+            <dt>Date</dt>
+            <dd>@weatherForecast.Date</dd>
+            <dt>Temp.C</dt>
+            <dd>@weatherForecast.TemperatureC</dd>
+            <dt>Temp.F</dt>
+            <dd>@weatherForecast.TemperatureF</dd>
+            <dt>Summary</dt>
+            <dd>@weatherForecast.Summary</dd>
+        }
     }
 </dl>
