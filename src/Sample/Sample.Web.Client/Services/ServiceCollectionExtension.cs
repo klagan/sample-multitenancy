@@ -28,9 +28,13 @@ namespace Sample.Web.Client.Services
             this IServiceCollection services, IConfiguration configuration
         )
         {
-            services.AddAuthentication(AzureADDefaults.AuthenticationScheme)
+            // we authenticate with AAD
+            // get our client details from configuration
+            services
+                .AddAuthentication(AzureADDefaults.AuthenticationScheme)
                 .AddAzureAD(options => configuration.Bind("AzureAd", options));
 
+            // configure the open id connection handler including events
             services.Configure<OpenIdConnectOptions>(AzureADDefaults.OpenIdScheme, options =>
             {
                 options.TokenValidationParameters = new TokenValidationParameters
@@ -65,7 +69,7 @@ namespace Sample.Web.Client.Services
                     //}
                 };
             });
-
+            
             services.AddControllersWithViews(options =>
             {
                 var policy = new AuthorizationPolicyBuilder()

@@ -34,15 +34,18 @@ namespace Sample.WebApi1
             IServiceCollection services
         )
         {
-            // AzureADOptions options = new AzureADOptions();
-            // Configuration.Bind("AzureAd", options);
-            
+            // we authenticate with bearer tokens (AAD Bearer)
+            // the details of our service are in the configuration (clientid/tenantid)
             services
                 .AddAuthentication(AzureADDefaults.BearerAuthenticationScheme)
                 .AddAzureADBearer(options => Configuration.Bind("AzureAd", options));
             
+            // configure the bearer authentication handler
             services.Configure<JwtBearerOptions>(AzureADDefaults.JwtBearerAuthenticationScheme, options =>
             {
+                // validateIssuer to false means ignore who issued you the token
+                // useful for global accepted multi tenancy
+                // but for more security we can provide a whitelist of issuers we could accept requests from instead
                 options.TokenValidationParameters = new TokenValidationParameters {ValidateIssuer = false};
                
                 // // This is a Microsoft identity platform web API.
