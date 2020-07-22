@@ -7,11 +7,11 @@ This sample is a web project that allows sign in from multiple tenants
 - [X] incorporate api permission in terraform script
 - [X] add documentation on providing consent
 - [X] use accesstoken to call webapi
-- [ ] register webapi with a different tenant
+- [ ] register webapi with a different tenant (enterprise application)
 - [ ] restrict tenant user access to different tenant owned web apis
-- [ ] rearrange terraform script to prevent needing to run twice
-- [ ] add app api id
-- [ ] provisioning application/service application (web app first)
+- [ ] rearrange terraform script to prevent needing to run twice (something messed up in terraform deployment sequence?)
+- [ ] add app api id (not sure what this is.  i need to make better notes)
+- [ ] provisioning application/service application (web app first) (again, i need better notes)
 - [ ] set the homepage
 - [ ] work on "my notes" section.  it should exist and all notes should be worked into system through automation and/or code
 
