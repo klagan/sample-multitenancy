@@ -14,7 +14,7 @@ namespace Sample.Web.Client.Controllers
     using Microsoft.Identity.Web;
     using Services;
 
-    [Authorize]
+    // authorisation is controlled in the Startup.cs [Authorize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

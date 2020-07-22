@@ -70,6 +70,7 @@ namespace Sample.Web.Client.Services
                 };
             });
             
+            // add authorisation to all controllers
             services.AddControllersWithViews(options =>
             {
                 var policy = new AuthorizationPolicyBuilder()
