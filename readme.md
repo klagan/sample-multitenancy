@@ -10,7 +10,7 @@ This sample is a web project that allows sign in from multiple tenants
 - [ ] register webapi with a different tenant (enterprise application)
 - [ ] restrict tenant user access to different tenant owned web apis
 - [ ] rearrange terraform script to prevent needing to run twice (something messed up in terraform deployment sequence?)
-- [ ] add app api id into `knownClientApplications` section of application registration manifest
+- [ ] add app api id into `knownClientApplications` section of application registration manifest [(here?)](https://docs.microsoft.com/en-us/cli/azure/ad/app?view=azure-cli-latest#az-ad-app-update)
 - [ ] provisioning application [(link)](https://docs.microsoft.com/en-us/azure/active-directory/app-provisioning/user-provisioning)
 - [ ] set the homepage
 - [ ] work on "my notes" section.  it should exist and all notes should be worked into system through automation and/or code
