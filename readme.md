@@ -11,7 +11,7 @@ This sample is a web project that allows sign in from multiple tenants
 - [ ] restrict tenant user access to different tenant owned web apis
 - [ ] rearrange terraform script to prevent needing to run twice (something messed up in terraform deployment sequence?)
 - [ ] add app api id (not sure what this is.  i need to make better notes)
-- [ ] provisioning application/service application (web app first) (again, i need better notes)
+- [ ] provisioning application [(link)](https://docs.microsoft.com/en-us/azure/active-directory/app-provisioning/user-provisioning)
 - [ ] set the homepage
 - [ ] work on "my notes" section.  it should exist and all notes should be worked into system through automation and/or code
 
