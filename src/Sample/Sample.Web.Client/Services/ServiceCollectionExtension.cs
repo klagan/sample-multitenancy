@@ -18,6 +18,12 @@ namespace Sample.Web.Client.Services
 
     public static class ServiceCollectionExtension
     {
+        /// <summary>
+        /// Standard authentication set up out of the box when creating a web application.  This is used as a control against the custom extensions we are writing
+        /// </summary>
+        /// <param name="services"></param>
+        /// <param name="configuration"></param>
+        /// <returns></returns>
         public static IServiceCollection AddVanillaAuthentication(
             this IServiceCollection services, IConfiguration configuration
         )
@@ -71,6 +77,12 @@ namespace Sample.Web.Client.Services
             return services;
         }
 
+        /// <summary>
+        /// Custom authentication setup using MSAL
+        /// </summary>
+        /// <param name="services"></param>
+        /// <param name="configuration"></param>
+        /// <returns></returns>
         public static IServiceCollection AddMsalAuthentication(
             this IServiceCollection services,
             IConfiguration configuration
@@ -107,6 +119,14 @@ namespace Sample.Web.Client.Services
             return services;
         }
         
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="issuer"></param>
+        /// <param name="securityToken"></param>
+        /// <param name="validationParameters"></param>
+        /// <returns></returns>
+        /// <exception cref="SecurityTokenInvalidIssuerException"></exception>
         private static string ValidateSpecificIssuers(string issuer, SecurityToken securityToken,
             TokenValidationParameters validationParameters)
         {
@@ -124,6 +144,10 @@ namespace Sample.Web.Client.Services
             }
         }
         
+        /// <summary>
+        /// List of tenants we will allow to use the web application. (Should probably be a static list from a repository somewhere.)
+        /// </summary>
+        /// <returns></returns>
         private static string[] GetAcceptedTenantIds()
         {
             // If you are an ISV who wants to make the Web app available only to certain customers who
@@ -138,11 +162,18 @@ namespace Sample.Web.Client.Services
             };
         }
 
-        public static IServiceCollection AddWebApiOptions(
+        /// <summary>
+        /// Load the web api resource configurations for WebApi1
+        /// </summary>
+        /// <param name="services"></param>
+        /// <param name="configuration"></param>
+        /// <returns></returns>
+        public static IServiceCollection AddWebApi1Options(
             this IServiceCollection services,
             IConfiguration configuration
         )
         {
+            // TODO:: see if this works
             // services.Configure<WebApi1Options>(webApiOptions =>
             // {
             //     configuration.GetSection("WebApi");
