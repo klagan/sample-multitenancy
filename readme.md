@@ -13,7 +13,7 @@ This sample is a web project that allows sign in from multiple tenants
 - [ ] add app api id
 - [ ] provisioning application/service application (web app first)
 - [ ] set the homepage
-- [ ] 
+- [ ] work on "my notes" section.  it should exist and all notes should be worked into system through automation and/or code
 
 ## Getting started
 
@@ -47,6 +47,14 @@ Change the `area` in the `_LoginPartial` partial views from `AzureAd` to `Micros
 |`MsalUiRequiredException: No account or login hint was passed to the AcquireTokenSilent call.`|Try clearing the cookies and trying again.  This message could indicate you are using a stale cookie when changes have been made to authn.  Clearing the cookies and logging in again to generate a new cookie may highlight the true error or fix the problem.|
 
 ## My Notes
+
+#### What this example currently does
+
+- uses`terraform` to create the cloud resources
+- uses`donet user-secrets` to set the client side configuration values in a secret store
+- spins up a protected multi tenant web api 
+- spins up a protected multi tenant web app
+- allows you to login into web app and subsequently call the underlying web service with an `on behalf of` call
 
 #### Tear down 
 
