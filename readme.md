@@ -67,4 +67,7 @@ Change the `area` in the `_LoginPartial` partial views from `AzureAd` to `Micros
 3. login to application with home tenant credentials
 4. consent permissions on appreg -> managed app -> permissions
 5. add enterprise application to client tenant : `az ad sp create --id <home tenant application appId>` and `az ad sp create --id <home tenant webapi appId>` (make sure any old ones are deleted)
-6. conset permission in client tenant enterprise applications -> permissions
+6. consent permission in client tenant enterprise applications -> permissions
+
+#### Docker
+override files dont override everything.  Use `docker-compose config` to see what the effective result it. eg: ports are concatenated not overriden

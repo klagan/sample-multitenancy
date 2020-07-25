@@ -16,16 +16,6 @@ namespace Sample.WebApi1
         )
         {
             CreateHostBuilder(args)
-                .ConfigureAppConfiguration((
-                    context,
-                    builder
-                ) =>
-                {
-                    // if (context.HostingEnvironment.IsDevelopment())
-                    // {
-                    //     builder.AddUserSecrets<Program>();
-                    // }
-                })
                 .Build()
                 .Run();
         }
@@ -37,7 +27,6 @@ namespace Sample.WebApi1
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
-                    webBuilder.UseUrls("http://localhost:5004");
                 });
     }
 }

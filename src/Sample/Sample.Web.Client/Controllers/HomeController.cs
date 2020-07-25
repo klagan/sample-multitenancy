@@ -55,6 +55,8 @@ namespace Sample.Web.Client.Controllers
             var response = await a.GetAsync("/Weatherforecast");
 
             var weatherForecast = await response.Content.ConvertAsync<List<WeatherForecast>>();
+
+            var k = await response.Content.ReadAsStringAsync();
             
             ViewBag.Payload = new TestData {AccessToken = accessToken, WeatherForecast = weatherForecast};
 

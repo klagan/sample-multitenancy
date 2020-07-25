@@ -8,6 +8,8 @@ using Microsoft.Extensions.Logging;
 
 namespace Sample.WebApi1.Controllers
 {
+    using Microsoft.Extensions.Configuration;
+
     [Authorize]
     [ApiController]
     [Route("[controller]")]
@@ -19,11 +21,14 @@ namespace Sample.WebApi1.Controllers
         };
 
         private readonly ILogger<WeatherForecastController> _logger;
+        private IConfiguration _configuration;
 
         public WeatherForecastController(
+            IConfiguration configuration,
             ILogger<WeatherForecastController> logger
         )
         {
+            _configuration = configuration;
             _logger = logger;
         }
 
@@ -38,6 +43,14 @@ namespace Sample.WebApi1.Controllers
                     Summary = Summaries[rng.Next(Summaries.Length)]
                 })
                 .ToArray();
+        }
+
+        [AllowAnonymous]
+        [HttpGet("Kam")]
+        public string Kam()
+        {
+            //return $"{_configuration["kam"]}";
+            return $"{_configuration["AzureAd:ClientId"]} / {Environment.GetEnvironmentVariable("ASPNETCORE_AzureAd__ClientId")}";
         }
     }
 }

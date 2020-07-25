@@ -1,0 +1,15 @@
+version: "3"
+services:
+  web:
+    build: .
+    image: sample/multitenancy
+    env_file: 
+      - .env.local
+    ports:
+      - ${ListeningPort}:5004
+#    environment:
+#      - AzureAd:TenantId=${TenantId}
+#      - AzureAd:ClientId=${ClientId}
+#      - ASPNETCORE_URLS=${ASPNETCORE_URLS}
+#      - DOTNET_USE_POLLING_FILE_WATCHER=${DOTNET_USE_POLLING_FILE_WATCHER}
+#      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
