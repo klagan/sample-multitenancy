@@ -35,7 +35,6 @@ namespace Sample.Web.Client
             IServiceCollection services
         )
         {
-            // services.AddVanillaAuthentication(Configuration);
             services.AddMsalAuthentication(Configuration);
             services.AddWebApi1Options(Configuration);
             services.AddRazorPages();
