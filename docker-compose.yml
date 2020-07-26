@@ -1,15 +1,36 @@
 version: "3"
 services:
-  web:
-    build: .
-    image: sample/multitenancy
+  webapi1:
+    build: 
+      context: .
+      dockerfile: webapi1.dockerfile
+    image: sample/multitenancy/webapi1
     env_file: 
-      - .env.local
+      - .env.webapi1
     ports:
-      - ${ListeningPort}:5004
+      - 5004:5004
 #    environment:
-#      - AzureAd:TenantId=${TenantId}
-#      - AzureAd:ClientId=${ClientId}
-#      - ASPNETCORE_URLS=${ASPNETCORE_URLS}
-#      - DOTNET_USE_POLLING_FILE_WATCHER=${DOTNET_USE_POLLING_FILE_WATCHER}
-#      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
+#      - AzureAd__TenantId=common
+#      - AzureAd__ClientId=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+#      - DOTNET_USE_POLLING_FILE_WATCHER=true
+#      - ASPNETCORE_ENVIRONMENT=Development
+#      - ASPNETCORE_URLS=http://+:5004
+
+  webapp:
+    build:
+      context: .
+      dockerfile: webapp.dockerfile
+    image: sample/multitenancy/webapp
+    env_file:
+      - .env.webapp
+    ports:
+      - 5005:5005
+#    environment:
+#      - AzureAd__TenantId=common
+#      - AzureAd__ClientId=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+#      - AzureAd__ClientSecret=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+#      - WebApi1__ClientId=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+#      - WebApi1__BaseAddress=http://host.docker.internal:5004
+#      - DOTNET_USE_POLLING_FILE_WATCHER=true
+#      - ASPNETCORE_ENVIRONMENT=Development
+#      - ASPNETCORE_URLS=http://+:5005

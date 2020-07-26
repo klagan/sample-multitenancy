@@ -8,10 +8,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".config", ".config", "{2CF4
 ProjectSection(SolutionItems) = preProject
 	..\..\readme.md = ..\..\readme.md
 	..\..\.gitignore = ..\..\.gitignore
-	..\..\dockerfile = ..\..\dockerfile
 	..\..\docker-compose.yml = ..\..\docker-compose.yml
 	..\..\.env = ..\..\.env
-	..\..\.env.local = ..\..\.env.local
+	..\..\.env.webapp = ..\..\.env.webapp
+	..\..\.env.webapi1 = ..\..\.env.webapi1
+	..\..\webapi1.dockerfile = ..\..\webapi1.dockerfile
+	..\..\webapp.dockerfile = ..\..\webapp.dockerfile
 EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Terraform", "Terraform", "{25A73281-1C52-4A31-9590-7F2F2EBCDC5A}"

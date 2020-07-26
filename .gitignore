@@ -354,7 +354,8 @@ MigrationBackup/
 **/.terraform
 **/*.tfstate*
 **/.DS_*
-**/.env.local
+**/.env.webapi1
+**/.env.webapp
 
 ### SonarQube ###
 # SonarQube ignore files.
