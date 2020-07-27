@@ -1,11 +1,13 @@
 namespace Sample.Web.Client.Services
 {
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Authentication;
     using Microsoft.AspNetCore.Authentication.AzureAD.UI;
     using Microsoft.AspNetCore.Authentication.OpenIdConnect;
     using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.Authorization;
     using Microsoft.Extensions.Configuration;
@@ -143,17 +145,19 @@ namespace Sample.Web.Client.Services
             {
                 return issuer;
             }
-            else
+            
+            throw new SecurityTokenInvalidIssuerException(
+                    "The sign-in user's account does not belong to one of the tenants that this Web App accepts users from.")
             {
-                throw new SecurityTokenInvalidIssuerException("The sign-in user's account does not belong to one of the tenants that this Web App accepts users from.");
-            }
+                InvalidIssuer = issuer
+            };
         }
         
         /// <summary>
         /// List of tenants we will allow to use the web application. (Should probably be a static list from a repository somewhere.)
         /// </summary>
         /// <returns></returns>
-        private static string[] GetAcceptedTenantIds()
+        private static IEnumerable<string> GetAcceptedTenantIds()
         {
             // If you are an ISV who wants to make the Web app available only to certain customers who
             // are paying for the service, you might want to fetch this list of accepted tenant ids from

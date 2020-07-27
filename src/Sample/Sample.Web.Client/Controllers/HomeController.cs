@@ -11,7 +11,9 @@ namespace Sample.Web.Client.Controllers
     using System.Collections.Generic;
     using System.Net.Http;
     using System.Net.Http.Headers;
+    using Microsoft.AspNetCore.Diagnostics;
     using Microsoft.Identity.Web;
+    using Microsoft.IdentityModel.Tokens;
     using Services;
 
     // authorisation is controlled in the Startup.cs [Authorize]
@@ -67,6 +69,18 @@ namespace Sample.Web.Client.Controllers
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
+            // foreach (var cookie in Request.Cookies.Keys)
+            // {
+            //     Response.Cookies.Delete(cookie);
+            // }
+            var exceptionHandlerPathFeature =
+                HttpContext.Features.Get<IExceptionHandlerPathFeature>();
+
+            // TODO:: look into more consistent solution than this dogs dinner
+            // this will let you know if the reason it errored is because of an invalid tenant
+            // another way to handle this is allow all through but protect the endpoints with action filters
+            var a = exceptionHandlerPathFeature?.Error.InnerException is SecurityTokenInvalidIssuerException;
+            
             return View(new ErrorViewModel {RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier});
         }
     }

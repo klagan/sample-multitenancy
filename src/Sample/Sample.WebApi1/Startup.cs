@@ -29,6 +29,8 @@ namespace Sample.WebApi1
 
         public IConfiguration Configuration { get; }
 
+        private string[] AcceptedIssusers = new[] {"82d75a56-f939-4164-b05a-2a3c5328b458", "100d1e66-3613-4505-91d6-b6c20c6370f9"};
+        
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(
             IServiceCollection services
@@ -47,7 +49,25 @@ namespace Sample.WebApi1
                 // useful for global accepted multi tenancy
                 // but for more security we can provide a whitelist of issuers we could accept requests from instead
                 options.TokenValidationParameters = new TokenValidationParameters {ValidateIssuer = false};
-               
+                options.TokenValidationParameters.IssuerValidator = (
+                    issuer,
+                    token,
+                    parameters
+                ) =>
+                {
+                    var validIssuers = AcceptedIssusers
+                            .Select(tid => $"https://login.microsoftonline.com/{tid}/v2.0")
+                        ; //.Select(tid => $"https://sts.windows.net/{tid}/");
+
+                    if (validIssuers.Contains(issuer))
+                    {
+                        return issuer;
+                    }
+
+                    throw new SecurityTokenInvalidIssuerException(
+                        "The sign-in user's account does not belong to one of the tenants that this Web Api1 accepts users from.");
+                };
+
                 // // This is a Microsoft identity platform web API.
                 // options.Authority += "/v2.0";
                 //
@@ -61,7 +81,7 @@ namespace Sample.WebApi1
                 // Instead of using the default validation (validating against a single tenant,
                 // as we do in line-of-business apps),
                 // we inject our own multitenant validation logic (which even accepts both v1 and v2 tokens).
-               // options.TokenValidationParameters.IssuerValidator = AadIssuerValidator.GetIssuerValidator(options.Authority).Validate;;
+                // options.TokenValidationParameters.IssuerValidator = AadIssuerValidator.GetIssuerValidator(options.Authority).Validate;;
             });
             
             
