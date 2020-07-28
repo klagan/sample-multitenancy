@@ -5,6 +5,7 @@ namespace Sample.Web.Client.Services
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Authentication;
     using Microsoft.AspNetCore.Authentication.AzureAD.UI;
+    using Microsoft.AspNetCore.Authentication.Cookies;
     using Microsoft.AspNetCore.Authentication.OpenIdConnect;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Http;
@@ -112,6 +113,14 @@ namespace Sample.Web.Client.Services
             {
                 options.TokenValidationParameters.ValidateAudience = true;
                 options.TokenValidationParameters.IssuerValidator = ValidateSpecificIssuers;
+
+                options.Events.OnAuthenticationFailed = context =>
+                {
+                    context.Response.Redirect("Home/Unauthorised");
+                    context.HandleResponse(); // Suppress the exception
+                    //await context.HttpContext.SignOutAsync(OpenIdConnectDefaults.AuthenticationScheme); // if you wanted to force an automatic signout
+                    return Task.FromResult(0);
+                };
             });
 
             services.AddControllersWithViews(options =>

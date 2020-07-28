@@ -11,6 +11,9 @@ namespace Sample.Web.Client.Controllers
     using System.Collections.Generic;
     using System.Net.Http;
     using System.Net.Http.Headers;
+    using Microsoft.AspNetCore.Authentication;
+    using Microsoft.AspNetCore.Authentication.Cookies;
+    using Microsoft.AspNetCore.Authentication.OpenIdConnect;
     using Microsoft.AspNetCore.Diagnostics;
     using Microsoft.Identity.Web;
     using Microsoft.IdentityModel.Tokens;
@@ -34,6 +37,7 @@ namespace Sample.Web.Client.Controllers
             _logger = logger;
         }
 
+        [AllowAnonymous]
         public IActionResult Index()
         {
             return View();
@@ -44,6 +48,11 @@ namespace Sample.Web.Client.Controllers
             return View();
         }
 
+        public IActionResult Unauthorised()
+        {
+            return View();
+        }
+        
         public async Task<IActionResult> CallWebApi()
         {
             // get an OBO token for calling user to call webapi1
