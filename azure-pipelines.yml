@@ -22,6 +22,7 @@ parameters:
       - 'Azure Pipelines'
       - 'Linux Agents'
       - 'MS Windows Agents'
+      - 'Local Agents'
   - name: WebArtefactPipelineId
     displayName: 'Web Artefact Pipeline Id'
     default: 'klagan.web-multi-tenancy'
