@@ -17,7 +17,7 @@ parameters:
   - name: AgentName
     displayName: 'Build Agent Name'
     type: string
-    default: 'Azure Pipelines'
+    default: 'Local Agents'
     values:
       - 'Azure Pipelines'
       - 'Linux Agents'
@@ -42,6 +42,7 @@ parameters:
 stages:
   - stage: 'Build'
     pool:
+      name: ${{ parameters.AgentName }}
       vmImage: 'ubuntu-latest'
     jobs:
       - job: 'Build'
