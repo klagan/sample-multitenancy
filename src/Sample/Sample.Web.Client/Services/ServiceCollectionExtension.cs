@@ -186,21 +186,25 @@ namespace Sample.Web.Client.Services
         /// <param name="services"></param>
         /// <param name="configuration"></param>
         /// <returns></returns>
-        public static IServiceCollection AddWebApi1Options(
+        public static IServiceCollection AddWebApiOptions(
             this IServiceCollection services,
             IConfiguration configuration
         )
         {
             // TODO:: see if this works
-            // services.Configure<WebApi1Options>(webApiOptions =>
+            // services.Configure<WebApiOptions>(webApiOptions =>
             // {
             //     configuration.GetSection("WebApi");
             // });
             
-            var options = new WebApi1Options();
+            var options = new WebApiOptions();
             configuration.Bind("WebApi1", options);
-
-            return services.AddSingleton(typeof(WebApi1Options), options);
+            services.AddSingleton(typeof(WebApiOptions), options);
+            
+            options = new WebApiOptions();
+            configuration.Bind("WebApi2", options);
+            
+            return services.AddSingleton(typeof(WebApiOptions), options);
         }
     }
 }
