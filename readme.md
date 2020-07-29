@@ -14,6 +14,8 @@ This sample is a web project that allows sign in from multiple tenants
 - [ ] provisioning application [(link)](https://docs.microsoft.com/en-us/azure/active-directory/app-provisioning/user-provisioning)
 - [ ] set the homepage
 - [ ] work on "my notes" section.  it should exist and all notes should be worked into system through automation and/or code
+- [ ] add another webapi for different tenant
+- [ ] move webapi config out of .json and into a sample inmemory source
 
 ## Getting started
 

@@ -17,6 +17,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace Sample.Web.Client
 {
+    using Microsoft.AspNetCore.Http;
     using Services;
 
     public class Startup
@@ -36,7 +37,9 @@ namespace Sample.Web.Client
         )
         {
             services.AddMsalAuthentication(Configuration);
-            services.AddWebApi1Options(Configuration);
+            services.AddWebApiOptions(Configuration);
+            services.AddTransient<WebApiLocator>();
+            
             services.AddRazorPages();
         }
 

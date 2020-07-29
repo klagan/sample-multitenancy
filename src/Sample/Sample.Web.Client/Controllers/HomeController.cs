@@ -24,16 +24,16 @@ namespace Sample.Web.Client.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly ITokenAcquisition _tokenRepo;
-        private readonly WebApi1Options _webApi1Options;
+        private readonly WebApiLocator _webApiLocator;
 
         public HomeController(
             ITokenAcquisition tokenRepository,
-            WebApi1Options webApi1Options,
+            WebApiLocator webApiLocator,
             ILogger<HomeController> logger
         )
         {
             _tokenRepo = tokenRepository;
-            _webApi1Options = webApi1Options;
+            _webApiLocator = webApiLocator;
             _logger = logger;
         }
 
@@ -55,13 +55,18 @@ namespace Sample.Web.Client.Controllers
         
         public async Task<IActionResult> CallWebApi()
         {
+            // TODO: ensure configuration is populated and check for single instances of options with tenant id etc. 
+            var userTenant = HttpContext.User.GetTenantId();
+            var webApiOptions = _webApiLocator.Get(userTenant);
+             
+
             // get an OBO token for calling user to call webapi1
-            var accessToken = await _tokenRepo.GetAccessTokenForUserAsync(new[] {$"{_webApi1Options.ClientId}/.default"});
+            var accessToken = await _tokenRepo.GetAccessTokenForUserAsync(new[] {$"{webApiOptions.ClientId}/.default"});
 
             // TODO:: replace this crappy test code in favour of dedicated transport agent (httpclientfactory, refit etc.)
             var a = new HttpClient();
             a.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-            a.BaseAddress = new Uri(_webApi1Options.BaseAddress);
+            a.BaseAddress = new Uri(webApiOptions.BaseAddress);
             
             var response = await a.GetAsync("/Weatherforecast");
 
