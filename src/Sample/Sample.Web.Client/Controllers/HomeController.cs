@@ -25,15 +25,18 @@ namespace Sample.Web.Client.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly ITokenAcquisition _tokenRepo;
         private readonly WebApiLocator _webApiLocator;
+        private IMyContextAccessor _myAccessor;
 
         public HomeController(
             ITokenAcquisition tokenRepository,
             WebApiLocator webApiLocator,
+            IMyContextAccessor myAccessor,
             ILogger<HomeController> logger
         )
         {
             _tokenRepo = tokenRepository;
             _webApiLocator = webApiLocator;
+            _myAccessor = myAccessor;
             _logger = logger;
         }
 
@@ -56,10 +59,10 @@ namespace Sample.Web.Client.Controllers
         public async Task<IActionResult> CallWebApi()
         {
             // TODO: ensure configuration is populated and check for single instances of options with tenant id etc. 
-            var userTenant = HttpContext.User.GetTenantId();
+            var userTenant = _myAccessor.TenantId;
             var webApiOptions = _webApiLocator.Get(userTenant);
-             
-
+            
+            // TODO: this fails between restarts because it needs a cache of tokens used.  current cache is in memory and cleared on restart
             // get an OBO token for calling user to call webapi1
             var accessToken = await _tokenRepo.GetAccessTokenForUserAsync(new[] {$"{webApiOptions.ClientId}/.default"});
 
@@ -72,8 +75,6 @@ namespace Sample.Web.Client.Controllers
 
             var weatherForecast = await response.Content.ConvertAsync<List<WeatherForecast>>();
 
-            var k = await response.Content.ReadAsStringAsync();
-            
             ViewBag.Payload = new TestData {AccessToken = accessToken, WeatherForecast = weatherForecast};
 
             return View();
@@ -83,17 +84,13 @@ namespace Sample.Web.Client.Controllers
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
-            // foreach (var cookie in Request.Cookies.Keys)
-            // {
-            //     Response.Cookies.Delete(cookie);
-            // }
-            var exceptionHandlerPathFeature =
-                HttpContext.Features.Get<IExceptionHandlerPathFeature>();
-
-            // TODO:: look into more consistent solution than this dogs dinner
-            // this will let you know if the reason it errored is because of an invalid tenant
-            // another way to handle this is allow all through but protect the endpoints with action filters
-            var a = exceptionHandlerPathFeature?.Error.InnerException is SecurityTokenInvalidIssuerException;
+            // // TODO:: look into more consistent solution than this dogs dinner
+            // // this will let you know if the reason it errored is because of an invalid tenant
+            // // another way to handle this is allow all through but protect the endpoints with action filters
+            // var exceptionHandlerPathFeature =
+            //     HttpContext.Features.Get<IExceptionHandlerPathFeature>();
+            //
+            // var errorReason = exceptionHandlerPathFeature?.Error.InnerException is SecurityTokenInvalidIssuerException;
             
             return View(new ErrorViewModel {RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier});
         }

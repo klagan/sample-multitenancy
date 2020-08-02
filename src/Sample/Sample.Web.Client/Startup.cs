@@ -1,24 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.AzureAD.UI;
-using Microsoft.AspNetCore.Authentication.OpenIdConnect;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc.Authorization;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.IdentityModel.Tokens;
-
 namespace Sample.Web.Client
 {
-    using Microsoft.AspNetCore.Http;
     using Services;
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Hosting;
 
     public class Startup
     {
@@ -36,10 +23,13 @@ namespace Sample.Web.Client
             IServiceCollection services
         )
         {
+            // TODO:: add service extension to add all custom services and package up (inc. authn/authz)
+            
             services.AddMsalAuthentication(Configuration);
             services.AddWebApiOptions(Configuration);
             services.AddTransient<WebApiLocator>();
-            
+            services.AddHttpContextAccessor();
+            services.AddTransient<IMyContextAccessor, MyContextAccessor>();
             services.AddRazorPages();
         }
 
@@ -68,6 +58,8 @@ namespace Sample.Web.Client
             app.UseAuthentication();
             app.UseAuthorization();
 
+            app.UseMyMiddleware();
+            
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
