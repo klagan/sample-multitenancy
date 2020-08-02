@@ -146,9 +146,11 @@ namespace Sample.Web.Client.Services
         private static string ValidateSpecificIssuers(string issuer, SecurityToken securityToken,
             TokenValidationParameters validationParameters)
         {
+            // TODO: have changed accessTokenAcceptedVersion in AAD manifest - need to check any impact
+            // https://github.com/AzureAD/microsoft-authentication-library-for-js/issues/560
             var validIssuers = GetAcceptedTenantIds()
-                .Select(tid => $"https://login.microsoftonline.com/{tid}/v2.0")
-                ;//.Select(tid => $"https://sts.windows.net/{tid}/");
+                .Select(tid => $"https://login.microsoftonline.com/{tid}/v2.0"); // v2
+                //.Select(tid => $"https://sts.windows.net/{tid}/"); // v1
             
             if (validIssuers.Contains(issuer))
             {
@@ -168,6 +170,7 @@ namespace Sample.Web.Client.Services
         /// <returns></returns>
         private static IEnumerable<string> GetAcceptedTenantIds()
         {
+            // TODO: package this up into a more dynamic solution
             // If you are an ISV who wants to make the Web app available only to certain customers who
             // are paying for the service, you might want to fetch this list of accepted tenant ids from
             // a database.

@@ -17,9 +17,8 @@ namespace Sample.Web.Client.Services
         {
             try
             {
-                string json = await content.ReadAsStringAsync();
-                T value = JsonConvert.DeserializeObject<T>(json);
-                return value;
+                var json = await content.ReadAsStringAsync();
+                return JsonConvert.DeserializeObject<T>(json);
             }
             catch
             {

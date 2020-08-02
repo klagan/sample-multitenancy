@@ -16,6 +16,7 @@ This sample is a web project that allows sign in from multiple tenants
 - [ ] work on "my notes" section.  it should exist and all notes should be worked into system through automation and/or code
 - [ ] add another webapi for different tenant
 - [ ] move webapi config out of .json and into a sample inmemory source
+- [ ] accessTokenAcceptedVersion => 2 in application manifest
 
 ## Getting started
 
@@ -47,6 +48,15 @@ Add `Microsoft.Identity.Web` and `Microsoft.Identity.Web.UI` packages to handle 
 
 Change the `area` in the `_LoginPartial` partial views from `AzureAd` to `MicrosoftIdentity`.  The `Microsoft.Identity.Web.UI` package is responsible for the challenge screens and uses the `MicrosoftIdentity` MVC area for the login and logout pages.
 
+#### Pipeline (middleware)
+
+[Source](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/middleware/?view=aspnetcore-3.1)
+
+This is set up in the `Startup.cs` in this order:
+
+exceptionHandler -> httpsRedirection -> staticFiles -> routing -> authN -> authZ -> myMiddleware -> endpoints (controller etc.)
+
+This order is also used in reverse on the way back unless a short circuit has been introduced
 
 #### What this example currently does
 

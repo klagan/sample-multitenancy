@@ -39,7 +39,8 @@ namespace Sample.Web.Client
             services.AddMsalAuthentication(Configuration);
             services.AddWebApiOptions(Configuration);
             services.AddTransient<WebApiLocator>();
-            
+            services.AddHttpContextAccessor();
+            services.AddTransient<IMyContextAccessor, MyContextAccessor>();
             services.AddRazorPages();
         }
 
@@ -68,6 +69,8 @@ namespace Sample.Web.Client
             app.UseAuthentication();
             app.UseAuthorization();
 
+            app.UseMyMiddleware();
+            
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
