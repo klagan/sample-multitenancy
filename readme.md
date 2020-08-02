@@ -8,7 +8,7 @@ This sample is a web project that allows sign in from multiple tenants
 - [X] add documentation on providing consent
 - [X] use accesstoken to call webapi
 - [ ] register webapi with a different tenant (enterprise application)
-- [ ] restrict tenant user access to different tenant owned web apis
+- [X] restrict tenant user access to different tenant owned web apis
 - [ ] rearrange terraform script to prevent needing to run twice (something messed up in terraform deployment sequence?)
 - [ ] add app api id into `knownClientApplications` section of application registration manifest [(here?)](https://docs.microsoft.com/en-us/cli/azure/ad/app?view=azure-cli-latest#az-ad-app-update)
 - [ ] provisioning application [(link)](https://docs.microsoft.com/en-us/azure/active-directory/app-provisioning/user-provisioning)
@@ -83,3 +83,4 @@ This order is also used in reverse on the way back unless a short circuit has be
 
 #### Docker
 override files dont override everything.  Use `docker-compose config` to see what the effective result it. eg: ports are concatenated not overriden
+[Source](https://www.digitalocean.com/community/tutorials/how-to-remove-docker-images-containers-and-volumes)
