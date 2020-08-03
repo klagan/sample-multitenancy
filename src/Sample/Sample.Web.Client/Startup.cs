@@ -24,9 +24,7 @@ namespace Sample.Web.Client
             IServiceCollection services
         )
         {
-            // TODO:: add service extension to add all custom services and package up (inc. authn/authz)
-
-            services.AddMultiTenantMsalAuthentication(Configuration, new InMemoryTenantDataSource());
+            services.AddMsalAuthentication(Configuration, new InMemoryTenantDataSource(), "/home/unauthorised");
             services.AddWebApiOptions(Configuration);
             services.AddTransient<WebApiLocator>();
 

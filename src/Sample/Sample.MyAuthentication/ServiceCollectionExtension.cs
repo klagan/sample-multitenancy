@@ -2,7 +2,7 @@ namespace Sample.MyAuthentication
 {
     using System;
     using System.Linq;
-    using System.Threading.Tasks;
+    using Microsoft.AspNetCore.Authentication;
     using Microsoft.AspNetCore.Authentication.OpenIdConnect;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc.Authorization;
@@ -21,14 +21,16 @@ namespace Sample.MyAuthentication
         /// <summary>
         /// Custom authentication setup using MSAL
         /// </summary>
-        /// <param name="services"></param>
-        /// <param name="configuration"></param>
-        /// <param name="tenantDataSource"></param>
+        /// <param name="services">Service collection</param>
+        /// <param name="configuration">Configuration</param>
+        /// <param name="tenantDataSource">Agent to return list of valid tenant ids.  If the tenant id list returned is empty then any tenant will be allowed</param>
+        /// <param name="unauthorisedPath">Action path to redirect when an invalid tenant is presented.  If you do not pass a path then the system will force a logout</param>
         /// <returns></returns>
-        public static IServiceCollection AddMultiTenantMsalAuthentication(
+        public static IServiceCollection AddMsalAuthentication(
             this IServiceCollection services,
             IConfiguration configuration,
-            ITenantDataSource tenantDataSource
+            ITenantDataSource tenantDataSource,
+            string unauthorisedPath = ""
         )
         {
             TenantDataSource = tenantDataSource ?? throw new ArgumentNullException(nameof(tenantDataSource));
@@ -54,17 +56,24 @@ namespace Sample.MyAuthentication
                 options.TokenValidationParameters.ValidateAudience = TenantDataSource.GetValidTenants().Any();
                 options.TokenValidationParameters.IssuerValidator = ValidateIssuers;
                     
-                options.Events.OnAuthenticationFailed = context =>
+                options.Events.OnAuthenticationFailed = async context =>
                 {
-                    // go to this page for pretty views to inform what went wrong
-                    context.Response.Redirect("Home/Unauthorised");
-                    
-                    // Suppress the exception
+                    // if path set for unauthorised calls the redirect there 
+                    if (!string.IsNullOrEmpty(unauthorisedPath))
+                    {
+                        context.Response.Redirect("Home/Unauthorised");
+                    }
+
+                    // suppress the exception
                     context.HandleResponse(); 
                     
-                    // if you wanted to force an automatic signout
-                    // await context.HttpContext.SignOutAsync(OpenIdConnectDefaults.AuthenticationScheme); 
-                    return Task.FromResult(0);
+                    // if no path set for unauthorised calls, force an automatic sign-out
+                    if (string.IsNullOrEmpty(unauthorisedPath))
+                    {
+                        await context.HttpContext.SignOutAsync(OpenIdConnectDefaults.AuthenticationScheme);
+                    }
+
+                    // return Task.FromResult(0);
                 };
             });
 
