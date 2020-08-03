@@ -19,6 +19,7 @@ namespace Sample.Web.Client.Services
             string tenantId
         )
         {
+            tenantId = "82d75a56-f939-4164-b05a-2a3c5328b458";
             // TODO: protect against duplicate tenant id
             // relies on the fact that all webapi configurations are unique by tenant id
             return _webApiOptions.SingleOrDefault(a => a.TenantId == tenantId);

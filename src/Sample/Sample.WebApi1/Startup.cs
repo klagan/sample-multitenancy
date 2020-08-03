@@ -21,9 +21,9 @@ namespace Sample.WebApi1
         }
 
         public IConfiguration Configuration { get; }
-
-        private string[] AcceptedIssusers = new[] {"82d75a56-f939-4164-b05a-2a3c5328b458", "100d1e66-3613-4505-91d6-b6c20c6370f9"};
         
+        private string[] AcceptedIssusers = new[] {"82d75a56-f939-4164-b05a-2a3c5328b458", "100d1e66-3613-4505-91d6-b6c20c6370f9"};
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(
             IServiceCollection services
@@ -41,7 +41,7 @@ namespace Sample.WebApi1
                 // validateIssuer to false means ignore who issued you the token
                 // useful for global accepted multi tenancy
                 // but for more security we can provide a whitelist of issuers we could accept requests from instead
-                options.TokenValidationParameters = new TokenValidationParameters {ValidateIssuer = false};
+                options.TokenValidationParameters = new TokenValidationParameters {ValidateIssuer = true};
                 options.TokenValidationParameters.IssuerValidator = (
                     issuer,
                     token,

@@ -7,15 +7,16 @@
 @{   
     var data = ViewBag.Payload;
     var weatherForecasts = data.WeatherForecast;
+    var statusCode = data.StatusCode;
 }  
 <div>
     <pre>Access Token: @data.AccessToken</pre>  
 </div>
 
 <dl>
-    @if(weatherForecasts is null)
+    @if (weatherForecasts is null)
     {
-        <p>Weather forecasts empty</p>    
+        <p>Weather forecasts empty : HTTP Status: @statusCode</p>
     }
     else
     {

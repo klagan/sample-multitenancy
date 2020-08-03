@@ -3,10 +3,10 @@ namespace Sample.Web.Client
     using Services;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
-    using Microsoft.AspNetCore.Http;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
+    using Microsoft.Extensions.Logging;
     using MyAuthentication;
 
     public class Startup
@@ -24,6 +24,13 @@ namespace Sample.Web.Client
             IServiceCollection services
         )
         {
+            services.AddLogging(builder =>
+            {
+                builder.AddConfiguration(Configuration.GetSection("Logging"));
+                builder.AddConsole(options => options.IncludeScopes = true);
+                builder.AddDebug();
+            });
+            
             services.AddMsalAuthentication(Configuration, new InMemoryTenantDataSource(), "/home/unauthorised");
             services.AddWebApiOptions(Configuration);
             services.AddTransient<WebApiLocator>();

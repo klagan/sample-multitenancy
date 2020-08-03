@@ -9,6 +9,7 @@ namespace Sample.MyAuthentication
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.DependencyInjection.Extensions;
+    using Microsoft.Extensions.Logging;
     using Microsoft.Identity.Web;
     using Microsoft.Identity.Web.TokenCacheProviders.InMemory;
     using Microsoft.Identity.Web.UI;
@@ -34,7 +35,7 @@ namespace Sample.MyAuthentication
         )
         {
             TenantDataSource = tenantDataSource ?? throw new ArgumentNullException(nameof(tenantDataSource));
-            
+
             services.AddHttpContextAccessor();
             services.TryAddTransient<IMyContextAccessor, MyContextAccessor>();
             
@@ -54,6 +55,14 @@ namespace Sample.MyAuthentication
                     // if path set for unauthorised calls the redirect there 
                     if (!string.IsNullOrEmpty(unauthorisedPath))
                     {
+                        var loggerFactory = context.HttpContext.RequestServices.GetService<ILoggerFactory>();
+
+                        if (loggerFactory != null)
+                        {
+                            var logger = loggerFactory.CreateLogger("Startup");
+                            logger.LogInformation(context.Exception.Message);
+                        }
+
                         context.Response.Redirect(unauthorisedPath);
                     }
 
