@@ -40,13 +40,6 @@ namespace Sample.MyAuthentication
             
             services
                 .AddSignIn(configuration)
-                // .AddSignIn(openIdConnectOptions =>
-                // {
-                //     configuration.Bind("AzureAd", openIdConnectOptions);
-                // }, microsoftIdentityOptions =>
-                // {
-                //     configuration.Bind("AzureAd", microsoftIdentityOptions);
-                // })
                 .AddWebAppCallsProtectedWebApi(configuration)
                 .AddInMemoryTokenCaches();
             
@@ -55,13 +48,13 @@ namespace Sample.MyAuthentication
             {
                 options.TokenValidationParameters.ValidateAudience = TenantDataSource.GetValidTenants().Any();
                 options.TokenValidationParameters.IssuerValidator = ValidateIssuers;
-                    
+                 
                 options.Events.OnAuthenticationFailed = async context =>
                 {
                     // if path set for unauthorised calls the redirect there 
                     if (!string.IsNullOrEmpty(unauthorisedPath))
                     {
-                        context.Response.Redirect("Home/Unauthorised");
+                        context.Response.Redirect(unauthorisedPath);
                     }
 
                     // suppress the exception
@@ -90,11 +83,9 @@ namespace Sample.MyAuthentication
             TokenValidationParameters validationParameters)
         {
             // https://github.com/AzureAD/microsoft-authentication-library-for-js/issues/560
-            
             var validIssuers = TenantDataSource
                 .GetValidTenants()
-                .Select(tid => $"https://login.microsoftonline.com/{tid}/v2.0"); // v2
-              //.Select(tid => $"https://sts.windows.net/{tid}/"); // v1
+                .Select(tid => string.Format(MyConstants.AadV2IssuerTemplate, tid)); 
             
             if (validIssuers.Contains(issuer))
             {

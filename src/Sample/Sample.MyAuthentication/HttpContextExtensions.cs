@@ -15,7 +15,7 @@ namespace Sample.MyAuthentication
         
         public static string GetMyKey(this HttpContext context)
         {
-            return context.GetValue<string>("MyKey");
+            return context.GetValue<string>(MyConstants.MyKey);
         }
         
         private static T GetValue<T>(this HttpContext context, string keyName) 
