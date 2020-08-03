@@ -1,23 +1,18 @@
-﻿using System.Diagnostics;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using Sample.Web.Client.Models;
-
-namespace Sample.Web.Client.Controllers
+﻿namespace Sample.Web.Client.Controllers
 {
     using System;
     using System.Collections.Generic;
     using System.Net.Http;
     using System.Net.Http.Headers;
-    using Microsoft.AspNetCore.Authentication;
-    using Microsoft.AspNetCore.Authentication.Cookies;
-    using Microsoft.AspNetCore.Authentication.OpenIdConnect;
-    using Microsoft.AspNetCore.Diagnostics;
     using Microsoft.Identity.Web;
-    using Microsoft.IdentityModel.Tokens;
+    using MyAuthentication;
     using Services;
+    using System.Diagnostics;
+    using System.Threading.Tasks;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Logging;
+    using Models;
 
     // authorisation is controlled in the Startup.cs [Authorize]
     public class HomeController : Controller

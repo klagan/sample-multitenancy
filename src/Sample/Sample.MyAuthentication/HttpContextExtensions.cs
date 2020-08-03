@@ -1,4 +1,4 @@
-namespace Sample.Web.Client.Services
+namespace Sample.MyAuthentication
 {
     using System.Collections.Generic;
     using Microsoft.AspNetCore.Http;

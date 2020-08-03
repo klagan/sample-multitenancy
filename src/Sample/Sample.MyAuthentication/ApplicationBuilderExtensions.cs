@@ -1,4 +1,4 @@
-namespace Sample.Web.Client.Services
+namespace Sample.MyAuthentication
 {
     using Microsoft.AspNetCore.Builder;
 

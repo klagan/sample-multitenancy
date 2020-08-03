@@ -3,9 +3,11 @@ namespace Sample.Web.Client
     using Services;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Http;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
+    using MyAuthentication;
 
     public class Startup
     {
@@ -24,12 +26,11 @@ namespace Sample.Web.Client
         )
         {
             // TODO:: add service extension to add all custom services and package up (inc. authn/authz)
-            
-            services.AddMsalAuthentication(Configuration);
+
+            services.AddMultiTenantMsalAuthentication(Configuration);
             services.AddWebApiOptions(Configuration);
             services.AddTransient<WebApiLocator>();
-            services.AddHttpContextAccessor();
-            services.AddTransient<IMyContextAccessor, MyContextAccessor>();
+
             services.AddRazorPages();
         }
 

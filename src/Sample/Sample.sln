@@ -35,6 +35,8 @@ EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample.WebApi1", "Sample.WebApi1\Sample.WebApi1.csproj", "{5F24FE68-A115-4E85-AB6A-72559E2C8EC8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample.MyAuthentication", "Sample.MyAuthentication\Sample.MyAuthentication.csproj", "{EFB5A552-F8D2-4552-B9B8-3275497B11BE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,10 +51,15 @@ Global
 		{5F24FE68-A115-4E85-AB6A-72559E2C8EC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5F24FE68-A115-4E85-AB6A-72559E2C8EC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5F24FE68-A115-4E85-AB6A-72559E2C8EC8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EFB5A552-F8D2-4552-B9B8-3275497B11BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EFB5A552-F8D2-4552-B9B8-3275497B11BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EFB5A552-F8D2-4552-B9B8-3275497B11BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EFB5A552-F8D2-4552-B9B8-3275497B11BE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{19B111A1-0BB8-40CB-BF7D-BBE2B5AB01E2} = {B0C296EE-BD94-4174-904B-F54F95A80028}
 		{25A73281-1C52-4A31-9590-7F2F2EBCDC5A} = {B0C296EE-BD94-4174-904B-F54F95A80028}
 		{5F24FE68-A115-4E85-AB6A-72559E2C8EC8} = {B0C296EE-BD94-4174-904B-F54F95A80028}
+		{EFB5A552-F8D2-4552-B9B8-3275497B11BE} = {B0C296EE-BD94-4174-904B-F54F95A80028}
 	EndGlobalSection
 EndGlobal
