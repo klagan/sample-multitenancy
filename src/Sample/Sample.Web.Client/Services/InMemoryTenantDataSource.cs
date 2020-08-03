@@ -1,4 +1,4 @@
-namespace Sample.Web.Client
+namespace Sample.Web.Client.Services
 {
     using System.Collections.Generic;
     using MyAuthentication;
