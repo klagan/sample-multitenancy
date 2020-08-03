@@ -15,5 +15,7 @@ namespace Sample.MyAuthentication
         public string MyKey => _httpContextAccessor.HttpContext.GetMyKey();
 
         public string TenantId => _httpContextAccessor.HttpContext.User.GetTenantId();
+
+        public string Name => _httpContextAccessor?.HttpContext?.User?.GetDisplayName();
     }
 }

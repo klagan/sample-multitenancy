@@ -72,8 +72,6 @@ namespace Sample.MyAuthentication
                     {
                         await context.HttpContext.SignOutAsync(OpenIdConnectDefaults.AuthenticationScheme);
                     }
-
-                    // return Task.FromResult(0);
                 };
             });
 
@@ -91,7 +89,6 @@ namespace Sample.MyAuthentication
         private static string ValidateIssuers(string issuer, SecurityToken securityToken,
             TokenValidationParameters validationParameters)
         {
-            // TODO: have changed accessTokenAcceptedVersion in AAD manifest - need to check any impact
             // https://github.com/AzureAD/microsoft-authentication-library-for-js/issues/560
             
             var validIssuers = TenantDataSource

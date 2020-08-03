@@ -17,7 +17,12 @@ namespace Sample.MyAuthentication
             // always added on every call to server
             // as its named, very useful for context information so need not pass context information through params but context
             context.Items.Add("MyKey", "kaml");
-            
+
+            if (context.User.Identity.IsAuthenticated)
+            {
+                // TODO:: load tenant object and store in context 
+            }
+
             if (_next != null)
                 await _next(context);
             

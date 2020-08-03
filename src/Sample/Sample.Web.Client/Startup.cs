@@ -51,12 +51,11 @@ namespace Sample.Web.Client
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            
             app.UseAuthentication();
+            app.UseMyMiddleware();
             app.UseAuthorization();
 
-            app.UseMyMiddleware();
-            
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

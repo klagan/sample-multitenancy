@@ -15,16 +15,16 @@ namespace Sample.MyAuthentication
         
         public static string GetMyKey(this HttpContext context)
         {
-            return context.GetValue("MyKey");
+            return context.GetValue<string>("MyKey");
         }
         
-        private static string GetValue(this HttpContext context, string keyName)
+        private static T GetValue<T>(this HttpContext context, string keyName) 
+            where T : class
         {
             if (!context.Items.ContainsKey(keyName))
                 throw new KeyNotFoundException($"{keyName} not found in context");
             
-            // TODO: test conversions
-            return context.Items[keyName] as string;
+            return context.Items[keyName] as T;
         }
     }
 }

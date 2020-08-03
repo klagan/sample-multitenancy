@@ -5,5 +5,7 @@ namespace Sample.MyAuthentication
         string MyKey { get; }
         
         string TenantId { get; }
+        
+        string Name { get; }
     }
 }

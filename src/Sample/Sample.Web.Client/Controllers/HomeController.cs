@@ -57,7 +57,7 @@
             // TODO: ensure configuration is populated and check for single instances of options with tenant id etc. 
             var userTenant = _myAccessor.TenantId;
             var webApiOptions = _webApiLocator.Get(userTenant);
-            
+           
             // TODO: this fails between restarts because it needs a cache of tokens used.  current cache is in memory and cleared on restart
             // get an OBO token for calling user to call webapi1
             var accessToken = await _tokenRepo.GetAccessTokenForUserAsync(new[] {$"{webApiOptions.ClientId}/.default"});
