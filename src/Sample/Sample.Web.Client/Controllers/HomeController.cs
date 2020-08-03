@@ -20,7 +20,7 @@
         private readonly ILogger<HomeController> _logger;
         private readonly ITokenAcquisition _tokenRepo;
         private readonly WebApiLocator _webApiLocator;
-        private IMyContextAccessor _myAccessor;
+        private readonly IMyContextAccessor _myAccessor;
 
         public HomeController(
             ITokenAcquisition tokenRepository,
@@ -46,6 +46,7 @@
             return View();
         }
 
+        [AllowAnonymous]
         public IActionResult Unauthorised()
         {
             return View();

@@ -1,9 +1,8 @@
 namespace Sample.MyAuthentication
 {
     using System;
+    using System.Linq;
     using System.Threading.Tasks;
-    using Microsoft.AspNetCore.Authentication;
-    using Microsoft.AspNetCore.Authentication.AzureAD.UI;
     using Microsoft.AspNetCore.Authentication.OpenIdConnect;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc.Authorization;
@@ -13,23 +12,29 @@ namespace Sample.MyAuthentication
     using Microsoft.Identity.Web;
     using Microsoft.Identity.Web.TokenCacheProviders.InMemory;
     using Microsoft.Identity.Web.UI;
+    using Microsoft.IdentityModel.Tokens;
 
     public static class ServiceCollectionExtension
     {
+        private static ITenantDataSource TenantDataSource { get; set; }
+
         /// <summary>
         /// Custom authentication setup using MSAL
         /// </summary>
         /// <param name="services"></param>
         /// <param name="configuration"></param>
+        /// <param name="tenantDataSource"></param>
         /// <returns></returns>
         public static IServiceCollection AddMultiTenantMsalAuthentication(
             this IServiceCollection services,
-            IConfiguration configuration
+            IConfiguration configuration,
+            ITenantDataSource tenantDataSource
         )
         {
+            TenantDataSource = tenantDataSource ?? throw new ArgumentNullException(nameof(tenantDataSource));
+            
             services.AddHttpContextAccessor();
             services.TryAddTransient<IMyContextAccessor, MyContextAccessor>();
-            services.TryAddTransient<ITenantRepository, TenantRepository>();
             
             services
                 .AddSignIn(configuration)
@@ -46,18 +51,19 @@ namespace Sample.MyAuthentication
             // Restrict users to specific belonging to specific tenants
             services.Configure<OpenIdConnectOptions>(OpenIdConnectDefaults.AuthenticationScheme, options =>
             {
-                var tenantRepository = services
-                    .BuildServiceProvider()
-                    .GetRequiredService<ITenantRepository>();
-                
-                options.TokenValidationParameters.ValidateAudience = true;
-                options.TokenValidationParameters.IssuerValidator = tenantRepository.ValidateIssuers; // TODO: make dynamic 
+                options.TokenValidationParameters.ValidateAudience = TenantDataSource.GetValidTenants().Any();
+                options.TokenValidationParameters.IssuerValidator = ValidateIssuers;
                     
                 options.Events.OnAuthenticationFailed = context =>
                 {
+                    // go to this page for pretty views to inform what went wrong
                     context.Response.Redirect("Home/Unauthorised");
-                    context.HandleResponse(); // Suppress the exception
-                    //await context.HttpContext.SignOutAsync(OpenIdConnectDefaults.AuthenticationScheme); // if you wanted to force an automatic signout
+                    
+                    // Suppress the exception
+                    context.HandleResponse(); 
+                    
+                    // if you wanted to force an automatic signout
+                    // await context.HttpContext.SignOutAsync(OpenIdConnectDefaults.AuthenticationScheme); 
                     return Task.FromResult(0);
                 };
             });
@@ -72,6 +78,28 @@ namespace Sample.MyAuthentication
                 .AddMicrosoftIdentityUI();
 
             return services;
+        }
+        private static string ValidateIssuers(string issuer, SecurityToken securityToken,
+            TokenValidationParameters validationParameters)
+        {
+            // TODO: have changed accessTokenAcceptedVersion in AAD manifest - need to check any impact
+            // https://github.com/AzureAD/microsoft-authentication-library-for-js/issues/560
+            
+            var validIssuers = TenantDataSource
+                .GetValidTenants()
+                .Select(tid => $"https://login.microsoftonline.com/{tid}/v2.0"); // v2
+              //.Select(tid => $"https://sts.windows.net/{tid}/"); // v1
+            
+            if (validIssuers.Contains(issuer))
+            {
+                return issuer;
+            }
+            
+            throw new SecurityTokenInvalidIssuerException(
+                "The sign-in user's account does not belong to one of the tenants that this Web App accepts users from.")
+            {
+                InvalidIssuer = issuer
+            };
         }
     }
 }

@@ -30,18 +30,8 @@
       </Content>
     </ItemGroup>
 
-
     <ItemGroup>
       <ProjectReference Include="..\Sample.MyAuthentication\Sample.MyAuthentication.csproj" />
-    </ItemGroup>
-
-
-    <ItemGroup>
-      <Compile Remove="Services\ApplicationBuilderExtensions.cs" />
-      <Compile Remove="Services\HttpContextExtensions.cs" />
-      <Compile Remove="Services\IMyContextAccessor.cs" />
-      <Compile Remove="Services\MyContextAccessor.cs" />
-      <Compile Remove="Services\MyMiddleware.cs" />
     </ItemGroup>
 
 </Project>
