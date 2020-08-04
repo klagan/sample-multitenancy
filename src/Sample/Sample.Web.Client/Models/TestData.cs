@@ -2,6 +2,7 @@ namespace Sample.Web.Client.Models
 {
     using System.Collections.Generic;
     using System.Net;
+    using MyAuthentication;
 
     public class TestData
     {
@@ -10,5 +11,7 @@ namespace Sample.Web.Client.Models
         public IList<WeatherForecast> WeatherForecast { get; set; }
         
         public HttpStatusCode StatusCode { get; set; }
+        
+        public Tenant Tenant { get; set; }
     }
 }

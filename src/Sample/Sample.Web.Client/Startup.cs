@@ -32,10 +32,9 @@ namespace Sample.Web.Client
             });
 
             services.AddTransient<ITenantDataSource, InMemoryTenantDataSource>();
+            services.AddTransient<IWebApiRepository, WebApiRepository>();
             
             services.AddMsalAuthentication(Configuration, "/home/unauthorised");
-            services.AddWebApiOptions(Configuration);
-            services.AddTransient<WebApiLocator>();
 
             services.AddRazorPages();
         }

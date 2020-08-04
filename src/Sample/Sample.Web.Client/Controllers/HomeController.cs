@@ -19,18 +19,18 @@
     {
         private readonly ILogger<HomeController> _logger;
         private readonly ITokenAcquisition _tokenRepo;
-        private readonly WebApiLocator _webApiLocator;
         private readonly IMyContextAccessor _myAccessor;
+        private readonly IWebApiRepository _webApiRepository;
 
         public HomeController(
             ITokenAcquisition tokenRepository,
-            WebApiLocator webApiLocator,
+            IWebApiRepository webApiRepository,
             IMyContextAccessor myAccessor,
             ILogger<HomeController> logger
         )
         {
             _tokenRepo = tokenRepository;
-            _webApiLocator = webApiLocator;
+            _webApiRepository = webApiRepository;
             _myAccessor = myAccessor;
             _logger = logger;
         }
@@ -56,8 +56,9 @@
         {
             // TODO: ensure configuration is populated and check for single instances of options with tenant id etc. 
             var userTenant = _myAccessor.TenantId;
-            var webApiOptions = _webApiLocator.Get(userTenant);
+            var webApiOptions = _webApiRepository.GetBy(userTenant);
 
+            // TODO:: remove - purely test to see if we get st
             var myTenantDetails = _myAccessor.Tenant;
             
             // TODO: this fails between restarts because it needs a cache of tokens used.  current cache is in memory and cleared on restart
@@ -73,7 +74,11 @@
 
             var weatherForecast = await response.Content.ConvertAsync<List<WeatherForecast>>();
 
-            ViewBag.Payload = new TestData {AccessToken = accessToken, WeatherForecast = weatherForecast, StatusCode = response.StatusCode};
+            ViewBag.Payload = new TestData
+            {
+                AccessToken = accessToken, WeatherForecast = weatherForecast, StatusCode = response.StatusCode,
+                Tenant = myTenantDetails
+            };
 
             return View();
         }
