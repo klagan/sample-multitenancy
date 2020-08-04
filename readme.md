@@ -16,7 +16,7 @@ This sample is a web project that allows sign in from multiple tenants
 - [ ] work on "my notes" section.  it should exist and all notes should be worked into system through automation and/or code
 - [ ] add another webapi for different tenant
 - [ ] move webapi config out of .json and into a sample inmemory source
-- [ ] accessTokenAcceptedVersion => 2 in application manifest
+- [ ] accessTokenAcceptedVersion => 2 in application manifest (webapp and web api)
 
 ## Getting started
 
