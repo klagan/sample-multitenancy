@@ -3,11 +3,11 @@ namespace Sample.Web.Client.Services
     using System.Linq;
     using Models;
 
-    public class WebApiRepository : IWebApiRepository
+    public class InMemoryWebApiRepository : IWebApiRepository
     {
         static readonly WebApiOptions[] WebApiServices;
 
-        static WebApiRepository()
+        static InMemoryWebApiRepository()
         {
             WebApiServices = new[]
             {
