@@ -7,5 +7,7 @@ namespace Sample.MyAuthentication
         string TenantId { get; }
         
         string Name { get; }
+        
+        Tenant Tenant { get; }
     }
 }

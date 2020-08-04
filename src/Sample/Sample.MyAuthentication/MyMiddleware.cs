@@ -1,7 +1,9 @@
 namespace Sample.MyAuthentication
 {
+    using System.Linq;
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Http;
+    using Microsoft.Extensions.DependencyInjection;
 
     internal class MyMiddleware
     {
@@ -19,7 +21,10 @@ namespace Sample.MyAuthentication
 
             if (context.User.Identity.IsAuthenticated)
             {
-                // TODO:: load tenant object and store in context 
+                var tenantService = context.RequestServices.GetService<ITenantDataSource>() ?? new EmptyTenantDataSource();
+                var tenant = tenantService.List().SingleOrDefault(x => x.Id == context.TenantId());
+                    
+                context.Items.Add(MyConstants.TenantKey, tenant);
             }
 
             if (_next != null)

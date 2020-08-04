@@ -1,6 +1,7 @@
 namespace Sample.MyAuthentication
 {
     using System.Collections.Generic;
+    using System.Linq;
 
     /// <summary>
     /// Agent to manage tenants
@@ -12,5 +13,11 @@ namespace Sample.MyAuthentication
         /// </summary>
         /// <returns></returns>
         IEnumerable<string> GetValidTenants();
+
+        /// <summary>
+        /// Find tenant information
+        /// </summary>
+        /// <returns></returns>
+        IQueryable<Tenant> List();
     }
 }

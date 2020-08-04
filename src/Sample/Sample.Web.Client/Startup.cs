@@ -30,8 +30,10 @@ namespace Sample.Web.Client
                 builder.AddConsole(options => options.IncludeScopes = true);
                 builder.AddDebug();
             });
+
+            services.AddTransient<ITenantDataSource, InMemoryTenantDataSource>();
             
-            services.AddMsalAuthentication(Configuration, new InMemoryTenantDataSource(), "/home/unauthorised");
+            services.AddMsalAuthentication(Configuration, "/home/unauthorised");
             services.AddWebApiOptions(Configuration);
             services.AddTransient<WebApiLocator>();
 

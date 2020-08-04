@@ -57,7 +57,9 @@
             // TODO: ensure configuration is populated and check for single instances of options with tenant id etc. 
             var userTenant = _myAccessor.TenantId;
             var webApiOptions = _webApiLocator.Get(userTenant);
-           
+
+            var myTenantDetails = _myAccessor.Tenant;
+            
             // TODO: this fails between restarts because it needs a cache of tokens used.  current cache is in memory and cleared on restart
             // get an OBO token for calling user to call webapi1
             var accessToken = await _tokenRepo.GetAccessTokenForUserAsync(new[] {$"{webApiOptions.ClientId}/.default"});
@@ -84,7 +86,7 @@
             // // this will let you know if the reason it errored is because of an invalid tenant
             // // another way to handle this is allow all through but protect the endpoints with action filters
             // var exceptionHandlerPathFeature =
-            //     HttpContext.Features.Get<IExceptionHandlerPathFeature>();
+            //     HttpContext.Features.List<IExceptionHandlerPathFeature>();
             //
             // var errorReason = exceptionHandlerPathFeature?.Error.InnerException is SecurityTokenInvalidIssuerException;
             

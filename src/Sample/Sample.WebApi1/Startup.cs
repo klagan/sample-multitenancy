@@ -41,24 +41,26 @@ namespace Sample.WebApi1
                 // validateIssuer to false means ignore who issued you the token
                 // useful for global accepted multi tenancy
                 // but for more security we can provide a whitelist of issuers we could accept requests from instead
-                options.TokenValidationParameters = new TokenValidationParameters {ValidateIssuer = true};
-                options.TokenValidationParameters.IssuerValidator = (
-                    issuer,
-                    token,
-                    parameters
-                ) =>
+                options.TokenValidationParameters = new TokenValidationParameters
                 {
-                    var validIssuers = AcceptedIssusers
-                            .Select(tid => $"https://login.microsoftonline.com/{tid}/v2.0")
-                        ; //.Select(tid => $"https://sts.windows.net/{tid}/");
-
-                    if (validIssuers.Contains(issuer))
+                    ValidateIssuer = true,
+                    IssuerValidator = (
+                        issuer,
+                        token,
+                        parameters
+                    ) =>
                     {
-                        return issuer;
-                    }
+                        var validIssuers = AcceptedIssusers
+                            .Select(tid => $"https://login.microsoftonline.com/{tid}/v2.0");
 
-                    throw new SecurityTokenInvalidIssuerException(
-                        "The sign-in user's account does not belong to one of the tenants that this Web Api1 accepts users from.");
+                        if (validIssuers.Contains(issuer))
+                        {
+                            return issuer;
+                        }
+
+                        throw new SecurityTokenInvalidIssuerException(
+                            "The sign-in user's account does not belong to one of the tenants that this Web Api1 accepts users from.");
+                    }
                 };
 
                 // // This is a Microsoft identity platform web API.

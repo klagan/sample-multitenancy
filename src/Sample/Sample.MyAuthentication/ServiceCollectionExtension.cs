@@ -24,17 +24,17 @@ namespace Sample.MyAuthentication
         /// </summary>
         /// <param name="services">Service collection</param>
         /// <param name="configuration">Configuration</param>
-        /// <param name="tenantDataSource">Agent to return list of valid tenant ids.  If the tenant id list returned is empty then any tenant will be allowed</param>
         /// <param name="unauthorisedPath">Action path to redirect when an invalid tenant is presented.  If you do not pass a path then the system will force a logout</param>
         /// <returns></returns>
         public static IServiceCollection AddMsalAuthentication(
             this IServiceCollection services,
             IConfiguration configuration,
-            ITenantDataSource tenantDataSource,
             string unauthorisedPath = ""
         )
         {
-            TenantDataSource = tenantDataSource ?? throw new ArgumentNullException(nameof(tenantDataSource));
+            TenantDataSource = services.BuildServiceProvider().GetService<ITenantDataSource>() ?? new EmptyTenantDataSource();
+
+            // TenantDataSource = tenantDataSource ?? throw new ArgumentNullException(nameof(tenantDataSource));
 
             services.AddHttpContextAccessor();
             services.TryAddTransient<IMyContextAccessor, MyContextAccessor>();
@@ -47,7 +47,7 @@ namespace Sample.MyAuthentication
             // Restrict users to specific belonging to specific tenants
             services.Configure<OpenIdConnectOptions>(OpenIdConnectDefaults.AuthenticationScheme, options =>
             {
-                options.TokenValidationParameters.ValidateAudience = TenantDataSource.GetValidTenants().Any();
+                options.TokenValidationParameters.ValidateIssuer = TenantDataSource.GetValidTenants().Any();
                 options.TokenValidationParameters.IssuerValidator = ValidateIssuers;
                  
                 options.Events.OnAuthenticationFailed = async context =>
