@@ -17,6 +17,7 @@ This sample is a web project that allows sign in from multiple tenants
 - [ ] add another webapi for different tenant
 - [ ] move webapi config out of .json and into a sample inmemory source
 - [ ] accessTokenAcceptedVersion => 2 in application manifest (webapp and web api)
+- [ ] put secrets into keyvault
 
 ## Getting started
 
