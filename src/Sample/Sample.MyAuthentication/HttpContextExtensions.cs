@@ -1,6 +1,7 @@
 namespace Sample.MyAuthentication
 {
     using System.Collections.Generic;
+    using System.Security.Claims;
     using Microsoft.AspNetCore.Http;
     using Microsoft.Identity.Web;
 
@@ -23,6 +24,11 @@ namespace Sample.MyAuthentication
             return context.GetValue<Tenant>(MyConstants.TenantKey);
         }
         
+        public static string GetName(this HttpContext context)
+        {
+            return context.User.FindFirstValue("name");
+        }
+
         private static T GetValue<T>(this HttpContext context, string keyName) 
             where T : class
         {
