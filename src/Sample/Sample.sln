@@ -14,6 +14,7 @@ ProjectSection(SolutionItems) = preProject
 	..\..\.env.webapi1 = ..\..\.env.webapi1
 	..\..\webapi1.dockerfile = ..\..\webapi1.dockerfile
 	..\..\webapp.dockerfile = ..\..\webapp.dockerfile
+	..\..\azure-pipelines.yml = ..\..\azure-pipelines.yml
 EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Terraform", "Terraform", "{25A73281-1C52-4A31-9590-7F2F2EBCDC5A}"

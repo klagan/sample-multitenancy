@@ -1,0 +1,5 @@
+{
+    "name": "kaml/devbox",
+    "image": "kaml/devbox",
+    "forwardPorts": [3000]
+  }
