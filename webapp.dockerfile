@@ -17,14 +17,17 @@ RUN dotnet restore  \
 FROM mcr.microsoft.com/dotnet/core/aspnet:3.1 AS final
 
 # copy the output from the host to a folder in the image
-COPY --from=build /build/src/Sample/Sample.Web.Client /WebApp  
+COPY --from=build /build/src/Sample/Sample.Web.Client/bin/Release/netcoreapp3.1/publish/ /WebApp  
 # COPY src/Sample/Sample.Web.Client/bin/Release/netcoreapp3.1/publish/ WebApp/
 
 # switch folder in the image
 WORKDIR /WebApp
 
-EXPOSE 5005
+ENV ASPNETCORE_URLS=http://+:5000
+
+EXPOSE 5000
 
 # start up of the image is dotnet sample.webapi1.dll
 ENTRYPOINT ["dotnet", "Sample.Web.Client.dll"]
+
 

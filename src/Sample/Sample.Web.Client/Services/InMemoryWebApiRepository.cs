@@ -14,11 +14,11 @@ namespace Sample.Web.Client.Services
                 new WebApiOptions()
                 {
                     // Instance = "https://login.microsoftonline.com/",
-                    ClientId = "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+                    ClientId = "87482a8b-2100-484f-a1e6-3d962787c113",
                     TenantId = "82d75a56-f939-4164-b05a-2a3c5328b458",
                     // CallbackPath = "/signin-oidc",
                     // SignedOutCallbackPath = "/signout-oidc",
-                    BaseAddress = "http://localhost:5004"
+                    BaseAddress = "http://host.docker.internal:5004"
                 },
                 new WebApiOptions()
                 {
