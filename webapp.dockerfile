@@ -38,5 +38,6 @@ ENV ASPNETCORE_ENVIRONMENT=Development
 # start up of the image is dotnet sample.webapi1.dll
 ENTRYPOINT ["dotnet", "Sample.Web.Client.dll"]
 
-# docker run -it -p 5111:5552 -e ASPNETCORE_URLS="http://+:5552" kamtest:3.0
+# docker build -t kamtest:latest . -f webapp.dockerfile
+# docker run -it -p 5111:5552 -e ASPNETCORE_URLS="http://+:5552" kamtest:latest
 
