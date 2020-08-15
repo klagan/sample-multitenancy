@@ -26,18 +26,16 @@ LABEL author="kam lagan" \
 WORKDIR /WebApp
 
 ENV ASPNETCORE_URLS=http://+:8080
-ENV AzureAd:ClientId=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 ENV AzureAd__TenantId=common
 ENV AzureAd__ClientId=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 ENV AzureAd__ClientSecret=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 ENV WebApi1__ClientId=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
-ENV WebApi1__BaseAddress=http://host.docker.internal:5004
+ENV WebApi1__BaseAddress=http://host.docker.internal:5001
 ENV DOTNET_USE_POLLING_FILE_WATCHER=true 
 ENV ASPNETCORE_ENVIRONMENT=Development
 
 # start up of the image is dotnet sample.webapi1.dll
 ENTRYPOINT ["dotnet", "Sample.Web.Client.dll"]
 
-# docker build -t kamtest:latest . -f webapp.dockerfile
-# docker run -it -p 5111:5552 -e ASPNETCORE_URLS="http://+:5552" kamtest:latest
+
 

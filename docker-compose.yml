@@ -4,18 +4,28 @@ services:
     build: 
       context: .
       dockerfile: webapi1.dockerfile
-    image: sample/multitenancy/webapi1
+    image: kaml/sample/multitenant/webapi1
     env_file: 
       - .env.webapi1
     ports:
-      - 5004:5004
+      - 5001:5001
+
+  # webapi2:
+  #   build: 
+  #     context: .
+  #     dockerfile: webapi1.dockerfile
+  #   image: kaml/sample/multitenant/webapi1
+  #   env_file: 
+  #     - .env.webapi2
+  #   ports:
+  #     - 5002:5002
 
   webapp:
     build:
       context: .
       dockerfile: webapp.dockerfile
-    image: sample/multitenancy/webapp
+    image: kaml/sample/multitenant/webapp
     env_file:
       - .env.webapp
     ports:
-      - 5005:${ASPNETCORE_PORT}
+      - 5000:5000
