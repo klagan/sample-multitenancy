@@ -16,11 +16,6 @@ RUN dotnet restore  \
 # use aspnet 3.1 image as our base
 FROM mcr.microsoft.com/dotnet/core/aspnet:3.1 AS final
 
-# default value is 5001
-# which can be overridden in the build process
-# eg: docker build -t kamtest:1.0 . -f webapp.dockerfile --build-arg ASPNETCORE_PORT=5005
-ARG ASPNETCORE_PORT=5001
-
 # copy the output from the host to a folder in the image
 COPY --from=build /build/src/Sample/Sample.Web.Client/bin/Release/netcoreapp3.1/publish/ /WebApp  
 
@@ -30,11 +25,18 @@ LABEL author="kam lagan" \
 # switch folder in the image
 WORKDIR /WebApp
 
-ENV ASPNETCORE_URLS=http://+:${ASPNETCORE_PORT:-5000}
-
-EXPOSE ${ASPNETCORE_PORT:-5000}
+ENV ASPNETCORE_URLS=http://+:8080
+ENV AzureAd:ClientId=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+ENV AzureAd__TenantId=common
+ENV AzureAd__ClientId=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+ENV AzureAd__ClientSecret=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+ENV WebApi1__ClientId=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+ENV WebApi1__BaseAddress=http://host.docker.internal:5004
+ENV DOTNET_USE_POLLING_FILE_WATCHER=true 
+ENV ASPNETCORE_ENVIRONMENT=Development
 
 # start up of the image is dotnet sample.webapi1.dll
 ENTRYPOINT ["dotnet", "Sample.Web.Client.dll"]
 
+# docker run -it -p 5111:5552 -e ASPNETCORE_URLS="http://+:5552" kamtest:3.0
 
