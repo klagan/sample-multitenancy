@@ -79,7 +79,7 @@ This order is also used in reverse on the way back unless a short circuit has be
 2. home tenant: knownClientApplications in webapi manifest must include appId of webclient
 3. login to application with home tenant credentials
 4. consent permissions on appreg -> managed app -> permissions
-5. add enterprise application to client tenant : `az ad sp create --id <home tenant application appId>` and `az ad sp create --id <home tenant webapi appId>` (make sure any old ones are deleted)
+5. add enterprise application to client tenant : `az ad sp create --id <home tenant webapi appId>` and `az ad sp create --id <home tenant client application appId>` (make sure any old ones are deleted)
 6. consent permission in client tenant enterprise applications -> permissions
 
 #### Docker
