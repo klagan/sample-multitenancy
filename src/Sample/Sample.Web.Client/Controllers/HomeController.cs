@@ -42,7 +42,7 @@
         }
 
         public IActionResult Privacy()
-        {        
+        {
             return View();
         }
 
@@ -51,16 +51,16 @@
         {
             return View();
         }
-        
+
         public async Task<IActionResult> CallWebApi()
         {
-            // TODO: ensure configuration is populated and check for single instances of options with tenant id etc. 
+            // TODO: ensure configuration is populated and check for single instances of options with tenant id etc.
             var userTenant = _myAccessor.TenantId;
             var webApiOptions = _webApiRepository.GetBy(userTenant);
 
             // TODO:: remove - purely test to see if we get st
             var myTenantDetails = _myAccessor.Tenant;
-            
+
             // TODO: this fails between restarts because it needs a cache of tokens used.  current cache is in memory and cleared on restart
             // get an OBO token for calling user to call webapi1
             var accessToken = await _tokenRepo.GetAccessTokenForUserAsync(new[] {$"{webApiOptions.ClientId}/.default"});
@@ -69,7 +69,7 @@
             var a = new HttpClient();
             a.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
             a.BaseAddress = new Uri(webApiOptions.BaseAddress);
-            
+
             var response = await a.GetAsync("/Weatherforecast");
 
             var weatherForecast = await response.Content.ConvertAsync<List<WeatherForecast>>();
@@ -94,7 +94,7 @@
             //     HttpContext.Features.List<IExceptionHandlerPathFeature>();
             //
             // var errorReason = exceptionHandlerPathFeature?.Error.InnerException is SecurityTokenInvalidIssuerException;
-            
+
             return View(new ErrorViewModel {RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier});
         }
     }
