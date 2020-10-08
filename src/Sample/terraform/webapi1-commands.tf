@@ -6,7 +6,7 @@ resource "null_resource" "clear_webapi1_user_secrets" {
   }
 
   triggers = {
-    always_run = "${timestamp()}"
+    always_run = timestamp()
   }
 
   depends_on = [azuread_application.my_webapi1]
@@ -19,7 +19,7 @@ resource "null_resource" "set_webapi1_clientid" {
   }
 
   triggers = {
-    always_run = "${timestamp()}"
+    always_run = timestamp()
   }
 
   depends_on = [null_resource.clear_webapi1_user_secrets]
@@ -45,7 +45,7 @@ resource "null_resource" "set_webapi1_tenantid" {
   }
 
   triggers = {
-    always_run = "${timestamp()}"
+    always_run = timestamp()
   }
 
   depends_on = [null_resource.set_webapi1_clientid]

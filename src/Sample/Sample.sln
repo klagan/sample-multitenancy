@@ -1,7 +1,5 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample.Web.Client", "Sample.Web.Client\Sample.Web.Client.csproj", "{19B111A1-0BB8-40CB-BF7D-BBE2B5AB01E2}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{B0C296EE-BD94-4174-904B-F54F95A80028}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".config", ".config", "{2CF4ABA9-3BC8-4566-9AAF-40F7675EFA4B}"
@@ -10,10 +8,7 @@ ProjectSection(SolutionItems) = preProject
 	..\..\.gitignore = ..\..\.gitignore
 	..\..\docker-compose.yml = ..\..\docker-compose.yml
 	..\..\.env = ..\..\.env
-	..\..\.env.webapp = ..\..\.env.webapp
-	..\..\.env.webapi1 = ..\..\.env.webapi1
-	..\..\webapi1.dockerfile = ..\..\webapi1.dockerfile
-	..\..\webapp.dockerfile = ..\..\webapp.dockerfile
+	..\..\azure-pipelines.yml = ..\..\azure-pipelines.yml
 EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Terraform", "Terraform", "{25A73281-1C52-4A31-9590-7F2F2EBCDC5A}"
@@ -35,24 +30,41 @@ EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample.WebApi1", "Sample.WebApi1\Sample.WebApi1.csproj", "{5F24FE68-A115-4E85-AB6A-72559E2C8EC8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample.MyAuthentication", "Client\Sample.MyAuthentication\Sample.MyAuthentication.csproj", "{B85EDE86-7655-4151-A2F0-23B3E8141947}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample.Web.Client", "Client\Sample.Web.Client\Sample.Web.Client.csproj", "{FE89252E-3D72-43A3-BBD5-DBC027DA3F46}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client", "Client", "{B7EAAAD1-39B7-4D0E-B411-8E8EDECFC5F9}"
+ProjectSection(SolutionItems) = preProject
+	Client\Dockerfile = Client\Dockerfile
+	Client\local-image-run.sh = Client\local-image-run.sh
+	Client\local-image-build.sh = Client\local-image-build.sh
+EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{19B111A1-0BB8-40CB-BF7D-BBE2B5AB01E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{19B111A1-0BB8-40CB-BF7D-BBE2B5AB01E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{19B111A1-0BB8-40CB-BF7D-BBE2B5AB01E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{19B111A1-0BB8-40CB-BF7D-BBE2B5AB01E2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5F24FE68-A115-4E85-AB6A-72559E2C8EC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5F24FE68-A115-4E85-AB6A-72559E2C8EC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5F24FE68-A115-4E85-AB6A-72559E2C8EC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5F24FE68-A115-4E85-AB6A-72559E2C8EC8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B85EDE86-7655-4151-A2F0-23B3E8141947}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B85EDE86-7655-4151-A2F0-23B3E8141947}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B85EDE86-7655-4151-A2F0-23B3E8141947}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B85EDE86-7655-4151-A2F0-23B3E8141947}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE89252E-3D72-43A3-BBD5-DBC027DA3F46}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE89252E-3D72-43A3-BBD5-DBC027DA3F46}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE89252E-3D72-43A3-BBD5-DBC027DA3F46}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE89252E-3D72-43A3-BBD5-DBC027DA3F46}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{19B111A1-0BB8-40CB-BF7D-BBE2B5AB01E2} = {B0C296EE-BD94-4174-904B-F54F95A80028}
 		{25A73281-1C52-4A31-9590-7F2F2EBCDC5A} = {B0C296EE-BD94-4174-904B-F54F95A80028}
 		{5F24FE68-A115-4E85-AB6A-72559E2C8EC8} = {B0C296EE-BD94-4174-904B-F54F95A80028}
+		{B7EAAAD1-39B7-4D0E-B411-8E8EDECFC5F9} = {B0C296EE-BD94-4174-904B-F54F95A80028}
+		{B85EDE86-7655-4151-A2F0-23B3E8141947} = {B7EAAAD1-39B7-4D0E-B411-8E8EDECFC5F9}
+		{FE89252E-3D72-43A3-BBD5-DBC027DA3F46} = {B7EAAAD1-39B7-4D0E-B411-8E8EDECFC5F9}
 	EndGlobalSection
 EndGlobal

@@ -29,3 +29,7 @@ output "list_webapi1_user_secret_command" {
 output webapi1_replyurl {
   value = var.webapi1_replyurl
 }
+
+output NOTES {
+  value = "accessTokenAcceptedVersion is not exposed through an API.  This means that you must manually set the value to '2' in the application registration manifest"
+}

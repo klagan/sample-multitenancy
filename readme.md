@@ -15,8 +15,11 @@ This sample is a web project that allows sign in from multiple tenants
 - [ ] set the homepage
 - [ ] work on "my notes" section.  it should exist and all notes should be worked into system through automation and/or code
 - [ ] add another webapi for different tenant
-- [ ] move webapi config out of .json and into a sample inmemory source
-- [ ] accessTokenAcceptedVersion => 2 in application manifest
+- [ ] move webapi config out of .json and into a sample in-memory source
+- [ ] accessTokenAcceptedVersion => 2 in application manifest (webapp and web api): at time of writing, this needs to be done manually as there is no api for it
+- [ ] put secrets into keyvault
+- [ ] user secrets not being loaded at runtime
+
 
 ## Getting started
 
@@ -62,11 +65,11 @@ This order is also used in reverse on the way back unless a short circuit has be
 
 - uses`terraform` to create the cloud resources
 - uses`donet user-secrets` to set the client side configuration values in a secret store
-- spins up a protected multi tenant web api 
+- spins up a protected multi tenant web api
 - spins up a protected multi tenant web app
 - allows you to login into web app and subsequently call the underlying web service with an `on behalf of` call
 
-#### Tear down 
+#### Tear down
 
 1. delete enterprise apps from client tenants
 2. check service principals on client tenants
@@ -78,7 +81,7 @@ This order is also used in reverse on the way back unless a short circuit has be
 2. home tenant: knownClientApplications in webapi manifest must include appId of webclient
 3. login to application with home tenant credentials
 4. consent permissions on appreg -> managed app -> permissions
-5. add enterprise application to client tenant : `az ad sp create --id <home tenant application appId>` and `az ad sp create --id <home tenant webapi appId>` (make sure any old ones are deleted)
+5. add enterprise application to client tenant : `az ad sp create --id <home tenant webapi appId>` and `az ad sp create --id <home tenant client application appId>` (make sure any old ones are deleted)
 6. consent permission in client tenant enterprise applications -> permissions
 
 #### Docker

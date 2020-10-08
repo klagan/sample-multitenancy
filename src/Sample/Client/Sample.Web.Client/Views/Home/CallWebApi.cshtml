@@ -1,0 +1,48 @@
+@{
+    ViewData["Title"] = "Call Web API";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+@{   
+    var data = ViewBag.Payload;
+    var weatherForecasts = data.WeatherForecast;
+    var statusCode = data.StatusCode;
+    var tenant = data.Tenant;
+}  
+<div>
+    <pre>Access Token: @data.AccessToken</pre>  
+</div>
+
+<dl>
+    @if (tenant != null)
+    {
+        <dt>Id</dt>
+        <dd>@tenant.Id</dd>
+        <dt>Tenant</dt>
+        <dd>@tenant.Name</dd>
+        <dt>Connection String</dt>
+        <dd>@tenant.DbConnectionString</dd>
+    }
+</dl>
+
+<dl>
+    @if (weatherForecasts is null)
+    {
+        <p>Weather forecasts empty : HTTP Status: @statusCode</p>
+    }
+    else
+    {
+        @foreach (var weatherForecast in weatherForecasts)
+        {
+            <dt>Date</dt>
+            <dd>@weatherForecast.Date</dd>
+            <dt>Temp.C</dt>
+            <dd>@weatherForecast.TemperatureC</dd>
+            <dt>Temp.F</dt>
+            <dd>@weatherForecast.TemperatureF</dd>
+            <dt>Summary</dt>
+            <dd>@weatherForecast.Summary</dd>
+        }
+    }
+</dl>

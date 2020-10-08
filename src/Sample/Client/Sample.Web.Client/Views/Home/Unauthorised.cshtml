@@ -1,0 +1,24 @@
+@using Microsoft.AspNetCore.Http
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Unauthorised</title>
+</head>
+<body>
+<H1>You are not authorised to use this application</h1>
+@{
+    @if (Context.Items["Exception"] is Exception e)
+    {
+        <p>@e.Message</p>
+    }
+}
+<div>
+    <a class="nav-link text-dark" asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="SignOut">Sign out</a>
+</div>
+</body>
+</html>

@@ -9,7 +9,7 @@ resource "null_resource" "clear_webclient_user_secrets" {
   }
 
   triggers = {
-    always_run = "${timestamp()}"
+    always_run = timestamp()
   }
 
   depends_on = [azuread_application.my_webclient]
@@ -22,7 +22,7 @@ resource "null_resource" "set_webclient_clientid" {
   }
 
   triggers = {
-    always_run = "${timestamp()}"
+    always_run = timestamp()
   }
 
   depends_on = [null_resource.clear_webclient_user_secrets]
@@ -35,7 +35,7 @@ resource "null_resource" "set_webclient_clientsecret" {
   }
 
   triggers = {
-    always_run = "${timestamp()}"
+    always_run = timestamp()
   }
 
   depends_on = [null_resource.set_webclient_clientid]
@@ -48,7 +48,7 @@ resource "null_resource" "set_webclient_webapi1_clientid" {
   }
 
   triggers = {
-    always_run = "${timestamp()}"
+    always_run = timestamp()
   }
 
   depends_on = [null_resource.set_webclient_clientsecret]
@@ -61,7 +61,7 @@ resource "null_resource" "set_webclient_webapi1_baseaddress" {
   }
 
   triggers = {
-    always_run = "${timestamp()}"
+    always_run = timestamp()
   }
 
   depends_on = [null_resource.set_webclient_webapi1_clientid]
