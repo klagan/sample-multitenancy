@@ -18,7 +18,7 @@ namespace Sample.Web.Client.Services
                     TenantId = "82d75a56-f939-4164-b05a-2a3c5328b458",
                     CallbackPath = "/signin-oidc",
                     SignedOutCallbackPath = "/signout-oidc",
-                    BaseAddress= "http://localhost:8080"
+                    BaseAddress= "http://host.docker.internal:8080"
                 },
                 new WebApiOptions()
                 {
@@ -27,7 +27,7 @@ namespace Sample.Web.Client.Services
                     TenantId = "100d1e66-3613-4505-91d6-b6c20c6370f9",
                     CallbackPath = "/signin-oidc",
                     SignedOutCallbackPath = "/signout-oidc",
-                    BaseAddress = "http://localhost:5002"
+                    BaseAddress = "http://host.docker.internal:5002"
                 }
             };
         }
