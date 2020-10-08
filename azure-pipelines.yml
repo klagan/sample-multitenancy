@@ -17,7 +17,7 @@ parameters:
   - name: AgentName
     displayName: 'Build Agent Name'
     type: string
-    default: 'Local Agents'
+    default: 'Azure Pipelines'
     values:
       - 'Azure Pipelines'
       - 'Linux Agents'
