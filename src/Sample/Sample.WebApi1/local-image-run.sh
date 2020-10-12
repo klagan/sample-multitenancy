@@ -8,5 +8,5 @@ docker run \
 -e Azuread__TenantId=common \
 -e AzureAd__Domain=laganlabs.it \
 -e ASPNETCORE_ENVIRONMENT=Development \
--p 8080:8080 \
+-p 8081:8080 \
 local/webapi

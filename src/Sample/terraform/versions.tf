@@ -10,3 +10,7 @@ provider "azurerm" {
 provider "azuread" {
   version = "~> 0.7"
 }
+
+provider "null" {
+  version = "~> 3.0.0"
+}

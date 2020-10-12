@@ -4,9 +4,9 @@ This sample is a web project that allows sign in from multiple tenants
 
 ## Work in Progress
 
-- [X] incorporate api permission in terraform script
-- [X] add documentation on providing consent
-- [X] use accesstoken to call webapi
+- [X] ~~incorporate api permission in terraform script~~
+- [X] ~~add documentation on providing consent~~
+- [X] ~~use accesstoken to call webapi~~
 - [ ] register webapi with a different tenant (enterprise application)
 - [ ] restrict tenant user access to different tenant owned web apis
 - [ ] rearrange terraform script to prevent needing to run twice (something messed up in terraform deployment sequence?)
@@ -18,7 +18,8 @@ This sample is a web project that allows sign in from multiple tenants
 - [ ] move webapi config out of .json and into a sample in-memory source
 - [ ] accessTokenAcceptedVersion => 2 in application manifest (webapp and web api): at time of writing, this needs to be done manually as there is no api for it
 - [ ] put secrets into keyvault
-- [ ] user secrets not being loaded at runtime
+- [ ] use same source for webapi details in 'inmemorywebapioptions' - they are independent but need to be in sync
+- [x] ~~user secrets not being loaded at runtime~~
 
 
 ## Getting started
