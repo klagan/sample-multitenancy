@@ -26,9 +26,9 @@ ProjectSection(SolutionItems) = preProject
 	terraform\webclient.tf = terraform\webclient.tf
 	terraform\webapi1-commands.tf = terraform\webapi1-commands.tf
 	terraform\webclient-commands.tf = terraform\webclient-commands.tf
+	terraform\webapi2.tf = terraform\webapi2.tf
+	terraform\webapi2-commands.tf = terraform\webapi2-commands.tf
 EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample.WebApi1", "Sample.WebApi1\Sample.WebApi1.csproj", "{5F24FE68-A115-4E85-AB6A-72559E2C8EC8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample.MyAuthentication", "Client\Sample.MyAuthentication\Sample.MyAuthentication.csproj", "{B85EDE86-7655-4151-A2F0-23B3E8141947}"
 EndProject
@@ -41,16 +41,18 @@ ProjectSection(SolutionItems) = preProject
 	Client\local-image-build.sh = Client\local-image-build.sh
 EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Server", "Server", "{16A9ACC0-4EBA-4085-8F8A-BE5DBDC1CAEC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample.WebApi1", "Server\Sample.WebApi1\Sample.WebApi1.csproj", "{F327164B-CCAA-4893-804E-00ABA0007DC0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample.WebApi2", "Server\Sample.WebApi2\Sample.WebApi2.csproj", "{3E847E4B-6F0C-4374-A5AE-B262C8B8C258}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{5F24FE68-A115-4E85-AB6A-72559E2C8EC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5F24FE68-A115-4E85-AB6A-72559E2C8EC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5F24FE68-A115-4E85-AB6A-72559E2C8EC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5F24FE68-A115-4E85-AB6A-72559E2C8EC8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B85EDE86-7655-4151-A2F0-23B3E8141947}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B85EDE86-7655-4151-A2F0-23B3E8141947}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B85EDE86-7655-4151-A2F0-23B3E8141947}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -59,12 +61,22 @@ Global
 		{FE89252E-3D72-43A3-BBD5-DBC027DA3F46}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FE89252E-3D72-43A3-BBD5-DBC027DA3F46}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FE89252E-3D72-43A3-BBD5-DBC027DA3F46}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F327164B-CCAA-4893-804E-00ABA0007DC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F327164B-CCAA-4893-804E-00ABA0007DC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F327164B-CCAA-4893-804E-00ABA0007DC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F327164B-CCAA-4893-804E-00ABA0007DC0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3E847E4B-6F0C-4374-A5AE-B262C8B8C258}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E847E4B-6F0C-4374-A5AE-B262C8B8C258}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E847E4B-6F0C-4374-A5AE-B262C8B8C258}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E847E4B-6F0C-4374-A5AE-B262C8B8C258}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{25A73281-1C52-4A31-9590-7F2F2EBCDC5A} = {B0C296EE-BD94-4174-904B-F54F95A80028}
-		{5F24FE68-A115-4E85-AB6A-72559E2C8EC8} = {B0C296EE-BD94-4174-904B-F54F95A80028}
 		{B7EAAAD1-39B7-4D0E-B411-8E8EDECFC5F9} = {B0C296EE-BD94-4174-904B-F54F95A80028}
 		{B85EDE86-7655-4151-A2F0-23B3E8141947} = {B7EAAAD1-39B7-4D0E-B411-8E8EDECFC5F9}
 		{FE89252E-3D72-43A3-BBD5-DBC027DA3F46} = {B7EAAAD1-39B7-4D0E-B411-8E8EDECFC5F9}
+		{16A9ACC0-4EBA-4085-8F8A-BE5DBDC1CAEC} = {B0C296EE-BD94-4174-904B-F54F95A80028}
+		{F327164B-CCAA-4893-804E-00ABA0007DC0} = {16A9ACC0-4EBA-4085-8F8A-BE5DBDC1CAEC}
+		{3E847E4B-6F0C-4374-A5AE-B262C8B8C258} = {16A9ACC0-4EBA-4085-8F8A-BE5DBDC1CAEC}
 	EndGlobalSection
 EndGlobal

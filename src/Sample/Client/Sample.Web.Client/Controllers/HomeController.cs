@@ -55,20 +55,20 @@
         public async Task<IActionResult> CallWebApi()
         {
             // TODO: ensure configuration is populated and check for single instances of options with tenant id etc.
-            var userTenant = _myAccessor.TenantId;
-            var webApiOptions = _webApiRepository.GetBy(userTenant);
+            var webApiOptions = _webApiRepository.GetBy("WebApi1"); // TODO:: could inject this as a dependency
 
-            // TODO:: remove - purely test to see if we get st
+            // TODO:: remove - purely test to see if we get stuff
             var myTenantDetails = _myAccessor.Tenant;
 
             // TODO: this fails between restarts because it needs a cache of tokens used.  current cache is in memory and cleared on restart
             // get an OBO token for calling user to call webapi1
-            var accessToken = await _tokenRepo.GetAccessTokenForUserAsync(new[] {$"{webApiOptions.ClientId}/.default"});
-
+            var accessToken = await _tokenRepo.GetAccessTokenForUserAsync(new[] {webApiOptions.PermissionScope});
+            
+            
             // TODO:: replace this crappy test code in favour of dedicated transport agent (httpclientfactory, refit etc.)
             var a = new HttpClient();
             a.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-            a.BaseAddress = new Uri(webApiOptions.BaseAddress);
+            a.BaseAddress = new Uri(_myAccessor.Tenant.BaseAddress);
 
             var response = await a.GetAsync("/Weatherforecast");
 

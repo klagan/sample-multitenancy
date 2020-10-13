@@ -7,7 +7,8 @@ namespace Sample.MyAuthentication
         public Tenant(
             string id,
             string name,
-            string dbConnectionString
+            string dbConnectionString,
+            string baseAddress
         )
         {
             if (string.IsNullOrEmpty(id))
@@ -30,6 +31,13 @@ namespace Sample.MyAuthentication
             }
 
             DbConnectionString = dbConnectionString;
+
+            if (string.IsNullOrEmpty(baseAddress))
+            {
+                throw new ArgumentNullException(nameof(baseAddress));
+            }
+
+            BaseAddress = baseAddress;
         }
         
         public string Id { get; private set; }
@@ -37,5 +45,7 @@ namespace Sample.MyAuthentication
         public string Name { get; private set; }
         
         public string DbConnectionString { get; private set; }
+        
+        public string BaseAddress { get; private set; }
     }
 }

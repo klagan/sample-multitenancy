@@ -5,6 +5,9 @@ namespace Sample.Web.Client.Services
     using System.Linq;
     using MyAuthentication;
 
+    /// <summary>
+    /// Representation of a repository for storing any tenant specification information
+    /// </summary>
     public class InMemoryTenantDataSource : ITenantDataSource
     {
         public IEnumerable<string> GetValidTenants()
@@ -14,7 +17,6 @@ namespace Sample.Web.Client.Services
             {
                 "82d75a56-f939-4164-b05a-2a3c5328b458",  // laganlabs.it
                 "100d1e66-3613-4505-91d6-b6c20c6370f9",  // test24.uk
-                "<Another GUID>"
             };  
         }
 
@@ -22,10 +24,19 @@ namespace Sample.Web.Client.Services
         {
             return new Tenant[]
                 {
-                    new Tenant("82d75a56-f939-4164-b05a-2a3c5328b458", "LaganLabs.IT",
-                        "LaganLabs db connection string"),
-                    new Tenant("100d1e66-3613-4505-91d6-b6c20c6370f9", "Test24.UK", 
-                        "Test24 db connection string")
+                    new Tenant(
+                        "82d75a56-f939-4164-b05a-2a3c5328b458"
+                        , "LaganLabs.IT"
+                        , "LaganLabs db connection string"
+                        , "http://localhost:8081/"
+                        ),
+                    
+                    new Tenant(
+                        "100d1e66-3613-4505-91d6-b6c20c6370f9"
+                        , "Test24.UK"
+                        , "Test24 db connection string"
+                        , "http://localhost:8081/"
+                        )
                 }
                 .AsQueryable();
         }

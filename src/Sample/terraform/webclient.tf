@@ -1,19 +1,19 @@
 resource "azuread_application" "my_webclient" {
   name                       = var.webclient_name
   homepage                   = var.webclient_homepage
-  reply_urls                 = [var.webclient_replyurl]
+  reply_urls                 = var.webclient_replyurl
   available_to_other_tenants = true
-  oauth2_allow_implicit_flow = true
+  oauth2_allow_implicit_flow = false
   type                       = "webapp/api"
 
   required_resource_access {
     resource_app_id = azuread_application.my_webapi1.application_id
     resource_access {
-      id = tolist(azuread_application.my_webapi1.oauth2_permissions)[0].id
+      id   = tolist(azuread_application.my_webapi1.oauth2_permissions)[0].id
       type = "Scope"
     }
   }
-  
+
   required_resource_access {
     # ms graph api
     resource_app_id = "00000003-0000-0000-c000-000000000000"
@@ -49,7 +49,7 @@ resource "azuread_application" "my_webclient" {
     }
   }
 
-  depends_on = [azuread_application.my_webapi1]  
+  depends_on = [azuread_application.my_webapi1]
 }
 
 resource "azuread_service_principal" "my_webclient_service_principal" {

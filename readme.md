@@ -20,6 +20,8 @@ This sample is a web project that allows sign in from multiple tenants
 - [ ] put secrets into keyvault
 - [ ] use same source for webapi details in 'inmemorywebapioptions' - they are independent but need to be in sync
 - [x] ~~user secrets not being loaded at runtime~~
+- [ ] parameterise docker build/run with environment variable
+- [ ] inmemorywebrepository search by tenant and parameterise from environment variables
 
 
 ## Getting started
