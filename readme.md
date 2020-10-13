@@ -22,7 +22,8 @@ This sample is a web project that allows sign in from multiple tenants
 - [x] ~~user secrets not being loaded at runtime~~
 - [ ] parameterise docker build/run with environment variable
 - [ ] inmemorywebrepository search by tenant and parameterise from environment variables
-
+- [ ] docker run --rm -it -v "$(pwd):/src" liamg/tfsec /src
+- [ ] docker run -t -v "$(pwd):/tf" bridgecrew/checkov -d /tf
 
 ## Getting started
 
