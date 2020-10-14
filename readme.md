@@ -7,18 +7,18 @@ This sample is a web project that allows sign in from multiple tenants
 - [X] ~~incorporate api permission in terraform script~~
 - [X] ~~add documentation on providing consent~~
 - [X] ~~use accesstoken to call webapi~~
-- [ ] register webapi with a different tenant (enterprise application)
-- [X] restrict tenant user access to different tenant owned web apis
-- [ ] rearrange terraform script to prevent needing to run twice (something messed up in terraform deployment sequence?)
+- [X] ~~register webapi with a different tenant (enterprise application)~~
+- [X] ~~restrict tenant user access to different tenant owned web apis~~
+- [X] ~~rearrange terraform script to prevent needing to run twice (something messed up in terraform deployment sequence?)~~
 - [ ] add app api id into `knownClientApplications` section of application registration manifest [(here?)](https://docs.microsoft.com/en-us/cli/azure/ad/app?view=azure-cli-latest#az-ad-app-update)
 - [ ] provisioning application [(link)](https://docs.microsoft.com/en-us/azure/active-directory/app-provisioning/user-provisioning)
-- [ ] set the homepage
+- [X] ~~set the homepage~~
 - [ ] work on "my notes" section.  it should exist and all notes should be worked into system through automation and/or code
 - [ ] add another webapi for different tenant
-- [ ] move webapi config out of .json and into a sample in-memory source
+- [X] ~~move webapi config out of .json and into a sample in-memory source~~
 - [ ] accessTokenAcceptedVersion => 2 in application manifest (webapp and web api): at time of writing, this needs to be done manually as there is no api for it
-- [ ] put secrets into keyvault
-- [ ] use same source for webapi details in 'inmemorywebapioptions' - they are independent but need to be in sync
+- [X] ~~put secrets into keyvault~~ - not going to do this here
+- [X] ~~use same source for webapi details in 'inmemorywebapioptions' - they are independent but need to be in sync~~
 - [x] ~~user secrets not being loaded at runtime~~
 - [ ] parameterise docker build/run with environment variable
 - [ ] inmemorywebrepository search by tenant and parameterise from environment variables

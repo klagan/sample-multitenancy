@@ -16,7 +16,7 @@ namespace Sample.MyAuthentication
 
         public async Task Invoke(HttpContext context)
         {
-            // added on every call - context information - need not pass context information through params
+            // EXAMPLE: added on every call - context information - need not pass context information through params
             context.Items.Add(MyConstants.MyKey, "kaml");
 
             if (context.User.Identity.IsAuthenticated)
@@ -30,7 +30,7 @@ namespace Sample.MyAuthentication
             if (_next != null)
                 await _next(context);
             
-            // do some stuff on the way out (cant write to response tho)
+            // EXAMPLE: do some stuff on the way out (cant write to response tho)
             context.Items.Add(MyConstants.MyExitKey, "im out!");
         }
     }

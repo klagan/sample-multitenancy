@@ -1,6 +1,6 @@
 resource "azuread_application" "my_webapi2" {
   name                       = var.webapi2_name
-  homepage                   = var.webapi2_homepage
+  homepage                   = local.wa2_homepage
   reply_urls                 = var.webapi2_replyurl
   available_to_other_tenants = true
   oauth2_allow_implicit_flow = false

@@ -1,6 +1,5 @@
 namespace Sample.MyAuthentication
 {
-    using System;
     using System.Linq;
     using Microsoft.AspNetCore.Authentication;
     using Microsoft.AspNetCore.Authentication.OpenIdConnect;
@@ -44,7 +43,7 @@ namespace Sample.MyAuthentication
                 .AddWebAppCallsProtectedWebApi(configuration)
                 .AddInMemoryTokenCaches();
             
-            // Restrict users to specific belonging to specific tenants
+            // TODO:: check if we need to restrict users to specific tenants
             services.Configure<OpenIdConnectOptions>(OpenIdConnectDefaults.AuthenticationScheme, options =>
             {
                 options.TokenValidationParameters.ValidateIssuer = TenantDataSource.GetValidTenants().Any();

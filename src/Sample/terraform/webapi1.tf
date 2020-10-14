@@ -1,10 +1,10 @@
 resource "azuread_application" "my_webapi1" {
   name                       = var.webapi1_name
-  homepage                   = var.webapi1_homepage
+  homepage                   = local.wa1_homepage
   reply_urls                 = var.webapi1_replyurl
   available_to_other_tenants = true
   oauth2_allow_implicit_flow = false
-  prevent_duplicate_names = false
+  prevent_duplicate_names    = false
   type                       = "webapp/api"
 }
 

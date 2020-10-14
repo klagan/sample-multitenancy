@@ -74,7 +74,7 @@
 
             var weatherForecast = await response.Content.ConvertAsync<List<WeatherForecast>>();
 
-            ViewBag.Payload = new TestData
+            ViewBag.Payload = new SampleData
             {
                 AccessToken = accessToken, WeatherForecast = weatherForecast, StatusCode = response.StatusCode,
                 Tenant = myTenantDetails

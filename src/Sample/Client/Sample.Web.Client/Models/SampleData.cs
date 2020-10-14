@@ -4,7 +4,7 @@ namespace Sample.Web.Client.Models
     using System.Net;
     using MyAuthentication;
 
-    public class TestData
+    public class SampleData
     {
         public string AccessToken { get; set; }
         

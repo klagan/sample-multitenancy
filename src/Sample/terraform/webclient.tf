@@ -1,6 +1,6 @@
 resource "azuread_application" "my_webclient" {
   name                       = var.webclient_name
-  homepage                   = var.webclient_homepage
+  homepage                   = local.wc_homepage
   reply_urls                 = var.webclient_replyurl
   available_to_other_tenants = true
   oauth2_allow_implicit_flow = false
