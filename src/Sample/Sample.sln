@@ -9,6 +9,7 @@ ProjectSection(SolutionItems) = preProject
 	..\..\docker-compose.yml = ..\..\docker-compose.yml
 	..\..\.env = ..\..\.env
 	..\..\azure-pipelines.yml = ..\..\azure-pipelines.yml
+	set_environment_variables.sh = set_environment_variables.sh
 EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Terraform", "Terraform", "{25A73281-1C52-4A31-9590-7F2F2EBCDC5A}"
@@ -28,6 +29,7 @@ ProjectSection(SolutionItems) = preProject
 	terraform\webclient-commands.tf = terraform\webclient-commands.tf
 	terraform\webapi2.tf = terraform\webapi2.tf
 	terraform\webapi2-commands.tf = terraform\webapi2-commands.tf
+	terraform\generate_environment_variables_script.tf = terraform\generate_environment_variables_script.tf
 EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample.MyAuthentication", "Client\Sample.MyAuthentication\Sample.MyAuthentication.csproj", "{B85EDE86-7655-4151-A2F0-23B3E8141947}"

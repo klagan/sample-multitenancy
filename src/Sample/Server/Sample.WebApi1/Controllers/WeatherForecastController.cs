@@ -36,7 +36,7 @@ namespace Sample.WebApi1.Controllers
         [HttpGet]
         public IEnumerable<WeatherForecast> Get()
         {
-            HttpContext.VerifyUserHasAnyAcceptedScope("user_impersonation");
+            // HttpContext.VerifyUserHasAnyAcceptedScope("user_impersonation");
             var rng = new Random();
             
             // FunctionThatDoesNothing(); if enabled, should fail for the caller as it demands a scope that doesnt exist

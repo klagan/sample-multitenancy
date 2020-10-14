@@ -63,12 +63,15 @@
             // TODO: this fails between restarts because it needs a cache of tokens used.  current cache is in memory and cleared on restart
             // get an OBO token for calling user to call webapi1
             var accessToken = await _tokenRepo.GetAccessTokenForUserAsync(new[] {webApiOptions.PermissionScope});
-            
-            
+
+            _logger.LogTrace("AccessToken => ", accessToken);
+
             // TODO:: replace this crappy test code in favour of dedicated transport agent (httpclientfactory, refit etc.)
             var a = new HttpClient();
             a.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
             a.BaseAddress = new Uri(_myAccessor.Tenant.BaseAddress);
+
+            _logger.LogTrace($"address => {a.BaseAddress}");
 
             var response = await a.GetAsync("/Weatherforecast");
 
