@@ -28,10 +28,9 @@ namespace Sample.Web.Client.Services
                         "82d75a56-f939-4164-b05a-2a3c5328b458"
                         , "LaganLabs.IT"
                         , "LaganLabs db connection string"
-                        //, "http://host.docker.internal:8081"
                         , "http://localhost:8081/"
                         ),
-                    
+                    // TODO: this section is not used currently, so dont expect it to work
                     new Tenant(
                         "100d1e66-3613-4505-91d6-b6c20c6370f9"
                         , "Test24.UK"

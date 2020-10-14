@@ -19,11 +19,12 @@ This sample is a web project that allows sign in from multiple tenants
 - [ ] accessTokenAcceptedVersion => 2 in application manifest (webapp and web api): at time of writing, this needs to be done manually as there is no api for it
 - [X] ~~put secrets into keyvault~~ - not going to do this here
 - [X] ~~use same source for webapi details in 'inmemorywebapioptions' - they are independent but need to be in sync~~
-- [x] ~~user secrets not being loaded at runtime~~
-- [ ] parameterise docker build/run with environment variable
+- [X] ~~user secrets not being loaded at runtime~~
+- [X] parameterise docker build/run with environment variable
 - [X] ~~inmemorywebrepository search by tenant and parameterise from environment variables~~
 - [ ] docker run --rm -it -v "$(pwd):/src" liamg/tfsec /src
 - [ ] docker run -t -v "$(pwd):/tf" bridgecrew/checkov -d /tf
+- [ ] review networking - why bridge network isnt created and have to use --net flag on docker run command (https://stackoverflow.com/questions/48546124/what-is-linux-equivalent-of-host-docker-internal) (https://www.baeldung.com/linux/docker-connecting-containers-to-host)
 
 ## Getting started
 

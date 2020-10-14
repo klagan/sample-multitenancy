@@ -13,4 +13,5 @@ docker run \
 -e DOTNET_USE_POLLING_FILE_WATCHER=true \
 -e ASPNETCORE_ENVIRONMENT=Development \
 -p 8080:8080 \
+--network="host" \
 local/webapp
