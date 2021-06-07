@@ -1,11 +1,11 @@
 webclient_user_secret_id = "aspnet-Sample.Web.Client-57E8E6DA-AEA5-40FD-BA50-F0D475BF546E"
 webclient_name           = "KAMTEST-Client"
 webclient_homepage       = "http://sample.com"
-webclient_replyurl       = "http://localhost:8080/signin-oidc"
+webclient_replyurl       = ["http://localhost:8080/signin-oidc", "https://oauth.pstmn.io/v1/callback"]
 webapi1_user_secret_id   = "aspnet-Sample.WebApi1-6FC74EFE-0E78-4B1C-81D9-14BEA6D79B4A"
 webapi1_name             = "KAMTEST-WebAPI1"
 webapi1_homepage         = "http://sample-webapi1.com"
-webapi1_replyurl         = "http://localhost:8081/signin-oidc"
+webapi1_replyurl         = ["http://localhost:8081/signin-oidc"]
 webapi2_user_secret_id   = "tbc"
 webapi2_name             = "KAMTEST-WebAPI2"
 webapi2_homepage         = "http://sample-webapi2.com"
